@@ -1,0 +1,49 @@
+{
+  "profiles": {
+    "Publish Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    },
+
+    // All the relative paths navigate into the template project that comes bundled with the main repository.
+    "Publish core Dev with ACC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith acc --defines \"dev\" --engine \"zandronum\" --publicAcs"
+    },
+
+    "Publish core Dev with GDCC-ACC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectGdccAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith gdccacc --noWarnForwardReferences --defines \"dev\" --engine \"zandronum\" --publicAcs"
+    },
+
+    "Publish core Dev with BCC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectBcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith bcc --defines \"dev\" --engine \"zandronum\" --publicAcs"
+    },
+
+    "Publish maps through temp project with full stripping": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectMaps\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmpty"
+    },
+
+    "Publish resources through temp project with full stripping": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectResources\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmpty"
+    },
+
+    "Publish core Prod through temp project with full stripping and compilation withACC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith gdccacc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+    },
+
+    "Publish core Prod through temp project with full stripping and compilation with GDCC-ACC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectGdccAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith acc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+    },
+
+    "Publish core Prod through temp project with full stripping and compilation with BCC": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectBcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith bcc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+    }
+  }
+}

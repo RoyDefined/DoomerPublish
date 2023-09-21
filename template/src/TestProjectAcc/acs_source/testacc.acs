@@ -1,0 +1,14 @@
+#library "testacc"
+#nocompact
+
+#include "zcommon.acs"
+
+// @todo: Handle this todo item, which only exists to show how todo items work.
+// @todo I am also a todo item!
+
+// @public
+// @summary Prints out the current environment on the screen.
+function void PrintEnvironmentAcc(void)
+{
+	Print(s:"ACC has no idea how to conditionally compile code.");
+}

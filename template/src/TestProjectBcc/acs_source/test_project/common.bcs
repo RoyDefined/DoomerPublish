@@ -1,0 +1,20 @@
+strict namespace Common {
+
+	// @todo: Handle this todo item, which only exists to show how todo items work.
+	// @todo I am also a todo item!
+	
+	private bool _isDevelopment =
+#ifdef dev
+		true;
+#else
+		false;
+#endif
+
+	// @public
+	// @summary Returns true if the project has been compiled to run in a development environment.
+	function bool IsDevelopmentBCC(void)
+	{
+		return _isDevelopment;
+	}
+}
+

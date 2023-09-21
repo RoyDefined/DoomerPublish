@@ -1,0 +1,14 @@
+#library "testgdcc"
+#nocompact
+
+#include "zcommon.acs"
+
+// Included files
+#include "test_project/common.acs"
+
+// @public
+// @summary Prints out the current environment on the screen.
+function void PrintEnvironmentGDCC(void)
+{
+	Print(s:"GDCC: the current environment is ", s:IsDevelopmentGDCC() ? "development" : "production", s:".");
+}

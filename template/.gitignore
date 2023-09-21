@@ -1,0 +1,35 @@
+// UDB .dbs files.
+*.dbs
+
+// Backups
+*.backup[123]
+*.bak
+
+// Shortcut files
+*.lnk
+
+// Generated log from Zandronum
+Log.log
+Log*.log
+
+// Compiler folders
+acc/*
+bcc/*
+gdcc/*
+
+// Keep `.gitkeep` files in compiler folders
+!acc/.gitkeep
+!bcc/.gitkeep
+!gdcc/.gitkeep
+
+// Compilation output
+stdout.log
+stderr.log
+*.stdout.log
+*.stderr.log
+
+// Project build
+[bB]uild/
+
+// Logs folder
+logs/

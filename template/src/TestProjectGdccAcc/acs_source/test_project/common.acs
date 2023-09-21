@@ -1,0 +1,13 @@
+// @todo: Handle this todo item, which only exists to show how todo items work.
+// @todo I am also a todo item!
+
+// @public
+// @summary Returns true if the project has been compiled to run in a development environment.
+function bool IsDevelopmentGDCC(void)
+{
+#ifdef dev
+	return true;
+#else
+	return false;
+#endif
+}

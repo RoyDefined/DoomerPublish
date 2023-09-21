@@ -1,0 +1,14 @@
+#library "testbcc"
+#nocompact
+
+#import "zcommon.bcs"
+
+// Included files
+#include "test_project/common.bcs"
+
+// @public
+// @summary Prints out the current environment on the screen.
+function void PrintEnvironmentBCC(void)
+{
+	Print(s:"BCC: the current environment is ", s:Common.IsDevelopmentBCC() ? "development" : "production", s:".");
+}
