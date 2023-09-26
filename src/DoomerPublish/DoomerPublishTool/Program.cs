@@ -86,6 +86,7 @@ try
 			configureConsole.ColorBehavior = LoggerColorBehavior.Disabled));
 #endif
 
+	_ = services.AddDoomerPublishTools();
 	_ = services.AddPublisher();
 }
 catch (Exception ex)
