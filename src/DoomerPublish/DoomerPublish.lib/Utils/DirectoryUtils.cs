@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,13 @@ namespace DoomerPublish.Utils;
 
 public static class DirectoryUtils
 {
-	public static bool IsDirectoryInPath(string? directoryPath, string fullPath)
+	/// <summary>
+	/// Returns <see langword="true"/> if <paramref name="directoryPath"/> is part of <paramref name="fullPath"/>.
+	/// </summary>
+	/// <param name="directoryPath">The firectory path to check.</param>
+	/// <param name="fullPath">The full path to check.</param>
+	/// <returns><see langword="true"/> if <paramref name="directoryPath"/> is part of <paramref name="fullPath"/>.</returns>
+	public static bool IsDirectoryInPath([NotNullWhen(true)] string? directoryPath, string fullPath)
 	{
 		if (directoryPath == null)
 		{
