@@ -60,4 +60,20 @@ public static class DirectoryUtils
 			CopyDirectoryContents(directoryPath, outputSubFolder);
 		}
 	}
+
+	/// <summary>
+	/// Recursively removes all empty directories in the given folder.
+	/// </summary>
+	/// <param name="folderPath">The path of the folder to look into.</param>
+	public static void RemoveEmptyDirectories(string folderPath)
+	{
+		foreach (var directory in Directory.GetDirectories(folderPath))
+		{
+			RemoveEmptyDirectories(directory);
+			if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+			{
+				Directory.Delete(directory, false);
+			}
+		}
+	}
 }
