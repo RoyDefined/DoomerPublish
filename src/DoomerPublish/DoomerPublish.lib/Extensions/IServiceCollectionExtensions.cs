@@ -9,7 +9,7 @@ public static class IServiceCollectionExtensions
 	public static IServiceCollection AddDoomerPublishTools(
 		this IServiceCollection serviceCollection)
 	{
-		_ = serviceCollection.AddSingleton<AcsSourceFileCollectService>();
+		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();
 		return serviceCollection;
 	}
 }

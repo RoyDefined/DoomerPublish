@@ -17,11 +17,11 @@ namespace DoomerPublish.PublishTasks;
 internal sealed class AddAcsSourcePathsToContextTask : IPublishTask
 {
 	private readonly ILogger _logger;
-	private readonly AcsSourceFileCollectService _acsSourceFileCollectService;
+	private readonly IAcsService _acsSourceFileCollectService;
 
 	public AddAcsSourcePathsToContextTask(
 		ILogger<AddAcsSourcePathsToContextTask> logger,
-		AcsSourceFileCollectService acsSourceFileCollectService)
+		IAcsService acsSourceFileCollectService)
 	{
 		this._logger = logger;
 		this._acsSourceFileCollectService = acsSourceFileCollectService;

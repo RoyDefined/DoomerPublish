@@ -6,3 +6,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "To be implemented at a later stage.")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Disagreed.")]
 [assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "Disagreed")]
+[assembly: SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "False positive")]

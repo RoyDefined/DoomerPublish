@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools;
 
-public sealed class AcsSourceFileCollectService
+internal sealed class DefaultAcsService : IAcsService
 {
 	public const string AcsSourceFolderName = "acs_source";
 
@@ -15,12 +15,13 @@ public sealed class AcsSourceFileCollectService
 
 	private readonly ILogger _logger;
 
-	public AcsSourceFileCollectService(
-		ILogger<AcsSourceFileCollectService> logger)
+	public DefaultAcsService(
+		ILogger<DefaultAcsService> logger)
 	{
 		this._logger = logger;
 	}
 
+	/// <inheritdoc />
 	public AcsSourceFilesResult GetAcsSourceFiles(string projectRootPath)
 	{
 		this._logger.LogDebug("Start search for '{AcsSourceFolderName}' and stray files in project '{ProjectRootPath}'", AcsSourceFolderName, projectRootPath);
