@@ -10,6 +10,8 @@ public static class IServiceCollectionExtensions
 		this IServiceCollection serviceCollection)
 	{
 		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();
+		_ = serviceCollection.AddSingleton<IAcsParseService, DefaultAcsParseService>();
+
 		return serviceCollection;
 	}
 }

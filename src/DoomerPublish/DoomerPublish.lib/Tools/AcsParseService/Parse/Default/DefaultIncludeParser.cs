@@ -49,18 +49,10 @@ internal sealed class DefaultIncludeParser : IAcsParser
 		foreach(var includedFile in includedFiles)
 		{
 			var filePath = Path.Join(Path.GetFullPath(acsFile.AbsoluteFolderPath), includedFile);
-			if (!File.Exists(filePath))
-			{
-				throw new FileNotFoundException($"Included file was not found: {filePath}.");
-			}
+			var includedAcsFile = await AcsFile.FromPathAsync(filePath, cancellationToken)
+				.ConfigureAwait(false);
 
-			acsFile.IncludedFiles.Add(new()
-			{
-				Name = includedFile,
-				AbsoluteFolderPath = filePath,
-				Content = await File.ReadAllTextAsync(filePath, cancellationToken)
-					.ConfigureAwait(false),
-			});
+			acsFile.IncludedFiles.Add(includedAcsFile);
 		}
 	}
 }

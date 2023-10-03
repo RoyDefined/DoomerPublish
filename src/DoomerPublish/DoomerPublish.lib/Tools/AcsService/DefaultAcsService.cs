@@ -36,6 +36,15 @@ internal sealed class DefaultAcsService : IAcsService
 		};
 	}
 
+	/// <inheritdoc />
+	public IEnumerable<string> GetRootAcsFilesFromSource(string sourceFolderPath)
+	{
+		return Directory.EnumerateFiles(sourceFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+			.Where(x => this._acsFileRegex.IsMatch(x) &&
+				!x.EndsWith(".g.acs", StringComparison.OrdinalIgnoreCase) &&
+				!x.EndsWith(".g.bcs", StringComparison.OrdinalIgnoreCase));
+	}
+
 	private string? GetAcsSourceFolderPath(string projectRootPath)
 	{
 		return Directory.GetDirectories(projectRootPath, AcsSourceFolderName, SearchOption.AllDirectories)
@@ -44,6 +53,11 @@ internal sealed class DefaultAcsService : IAcsService
 
 	private IEnumerable<string> GetStrayAcsSourceFiles(string projectRootPath, string? acsSourceFolderPath)
 	{
+		if (!Path.Exists(projectRootPath))
+		{
+			throw new InvalidOperationException($"ACS source folder path not found: {projectRootPath}");
+		}
+
 		return Directory.EnumerateFiles(projectRootPath, "*.*", SearchOption.AllDirectories)
 			.Where(x => this._acsFileRegex.IsMatch(x) &&
 				!x.EndsWith(".g.acs", StringComparison.OrdinalIgnoreCase) &&

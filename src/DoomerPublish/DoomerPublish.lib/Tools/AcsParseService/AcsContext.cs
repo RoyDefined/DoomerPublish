@@ -78,4 +78,20 @@ public sealed class AcsFile
 	public List<AcsMethod>? Methods { get; set; }
 	public List<TodoItem>? Todos { get; set; }
 	public string? Library { get; set; }
+
+	internal static async Task<AcsFile> FromPathAsync(string filePath, CancellationToken cancellationToken)
+	{
+		if (!File.Exists(filePath))
+		{
+			throw new FileNotFoundException($"ACS file was not found: {filePath}.");
+		}
+
+		return new()
+		{
+			Name = Path.GetFileName(filePath),
+			AbsoluteFolderPath = filePath,
+			Content = await File.ReadAllTextAsync(filePath, cancellationToken)
+				.ConfigureAwait(false),
+		};
+	}
 }

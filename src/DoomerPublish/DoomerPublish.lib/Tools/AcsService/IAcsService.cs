@@ -12,4 +12,11 @@ public interface IAcsService
 	/// <param name="projectRootPath">The project root path to search in.</param>
 	/// <returns>An <see cref="AcsSourceFilesResult"/> that represents the resulting file paths.</returns>
 	AcsSourceFilesResult GetAcsSourceFiles(string projectRootPath);
+
+	/// <summary>
+	/// Collects all root acs files from the source folder with the given path.
+	/// </summary>
+	/// <param name="sourceFolderPath">The source folder path to search.</param>
+	/// <returns>En enumerator of all file paths.</returns>
+	IEnumerable<string> GetRootAcsFilesFromSource(string sourceFolderPath);
 }
