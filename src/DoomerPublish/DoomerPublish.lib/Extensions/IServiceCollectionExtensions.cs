@@ -1,4 +1,5 @@
-﻿using DoomerPublish.Tools;
+﻿using DoomerPublish.Tools.Acs;
+using DoomerPublish.Tools.Decorate;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Immutable;
 
@@ -11,6 +12,9 @@ public static class IServiceCollectionExtensions
 	{
 		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();
 		_ = serviceCollection.AddSingleton<IAcsParseService, DefaultAcsParseService>();
+
+		_ = serviceCollection.AddSingleton<IDecorateService, DefaultDecorateService>();
+		_ = serviceCollection.AddSingleton<IDecorateParseService, DefaultDecorateParseService>();
 
 		return serviceCollection;
 	}

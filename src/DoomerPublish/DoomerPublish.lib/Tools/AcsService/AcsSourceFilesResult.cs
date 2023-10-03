@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace DoomerPublish.Tools;
+namespace DoomerPublish.Tools.Acs;
 
 public sealed class AcsSourceFilesResult
 {

@@ -2,7 +2,7 @@
 using DoomerPublish.Utils;
 using System.Text.RegularExpressions;
 
-namespace DoomerPublish.Tools;
+namespace DoomerPublish.Tools.Acs;
 
 internal sealed class DefaultAcsService : IAcsService
 {

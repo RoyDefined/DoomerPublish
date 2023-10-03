@@ -1,12 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace DoomerPublish.Tools;
+namespace DoomerPublish.Tools.Acs;
 
 internal sealed class DefaultLibraryParser : IAcsParser
 {

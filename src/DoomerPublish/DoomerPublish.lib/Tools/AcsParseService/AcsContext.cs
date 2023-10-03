@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace DoomerPublish.Tools;
+﻿namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
 /// Represents the type of method being defined.
@@ -53,15 +51,6 @@ public sealed class AcsMethodParameter
 {
 	public required AcsMethodParameterType Type { get; init; }
 	public required string Name { get; init; }
-}
-
-/// <summary>
-/// Represents a todo item.
-/// </summary>
-public sealed class TodoItem
-{
-	public required string Value { get; init; }
-	public required int Line { get; init; }
 }
 
 /// <summary>

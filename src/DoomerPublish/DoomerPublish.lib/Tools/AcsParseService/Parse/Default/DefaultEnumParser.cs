@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace DoomerPublish.Tools;
+namespace DoomerPublish.Tools.Acs;
 
 internal sealed class DefaultEnumParser : IAcsParser
 {

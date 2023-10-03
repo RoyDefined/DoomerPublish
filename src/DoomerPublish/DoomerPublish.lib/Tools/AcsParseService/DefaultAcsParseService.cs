@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
-namespace DoomerPublish.Tools;
+namespace DoomerPublish.Tools.Acs;
 
 internal sealed class DefaultAcsParseService : IAcsParseService
 {
