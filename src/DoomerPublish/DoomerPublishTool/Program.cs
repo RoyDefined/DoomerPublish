@@ -152,8 +152,6 @@ if (publisherResult?.Success == false)
 		{
 			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Running task: {publisherResult.Context.RunningTask.Name}");
 		}
-
-		_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{publisherResult.Exception!.Message}");
 	}
 
 	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
