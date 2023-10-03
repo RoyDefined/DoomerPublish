@@ -39,16 +39,13 @@ internal sealed class DefaultIncludeParser : IAcsParser
 			.Select(x => x.Value)
 
 			// Do not include zcommon.
-			.Where(x => !x.StartsWith("zcommon", StringComparison.OrdinalIgnoreCase))
-
-			// Get full path to file.
-			.Select(x => Path.Join(Path.GetFullPath(acsFile.AbsoluteFolderPath), x));
+			.Where(x => !x.StartsWith("zcommon", StringComparison.OrdinalIgnoreCase));
 
 		// Convert to AcsFile.
 		acsFile.IncludedFiles = new();
 		foreach(var includedFile in includedFiles)
 		{
-			var filePath = Path.Join(Path.GetFullPath(acsFile.AbsoluteFolderPath), includedFile);
+			var filePath = Path.Join(Path.GetDirectoryName(acsFile.AbsoluteFolderPath), includedFile);
 			var includedAcsFile = await AcsFile.FromPathAsync(filePath, cancellationToken)
 				.ConfigureAwait(false);
 
