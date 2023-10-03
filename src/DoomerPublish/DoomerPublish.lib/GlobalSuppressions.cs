@@ -9,3 +9,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "False positive.")]
 [assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "False positive.")]
 [assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "Disagreed.")]
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Disagreed.")]
+[assembly: SuppressMessage("Usage", "CA2201:Do not raise reserved exception types", Justification = "Disagreed.")]

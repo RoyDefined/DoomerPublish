@@ -72,10 +72,10 @@ public sealed class AcsFile
 	public required string Name { get; init; }
 	public required string AbsoluteFolderPath { get; init; }
 	public required string Content { get; init; }
-	public required List<AcsLibdefine>? LibDefines { get; set; }
-	public required List<AcsLibdefine>? EnumLibdefines { get; set; }
-	public required List<AcsFile>? IncludedFiles { get; set; }
-	public required List<AcsMethod>? Methods { get; set; }
-	public required List<TodoItem>? Todos { get; set; }
+	public List<AcsLibdefine>? LibDefines { get; set; }
+	public List<AcsLibdefine>? EnumLibdefines { get; set; }
+	public List<AcsFile>? IncludedFiles { get; set; }
+	public List<AcsMethod>? Methods { get; set; }
+	public List<TodoItem>? Todos { get; set; }
 	public string? Library { get; set; }
 }
