@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace DoomerPublish.PublishTasks;
 
@@ -30,21 +31,9 @@ internal sealed class RemoveEmptyDirectoriesTask : IPublishTask
 		var projectContext = context.ProjectContext ??
 			throw new InvalidOperationException("Expected a project context.");
 
-		RemoveEmptyDirectories(projectContext.ProjectPath);
+		DirectoryUtils.RemoveEmptyDirectories(projectContext.ProjectPath);
 		this._logger.LogInformation("Removed empty directories.", projectContext.ProjectName);
 
 		return Task.CompletedTask;
-	}
-
-	private static void RemoveEmptyDirectories(string folder)
-	{
-		foreach (var directory in Directory.GetDirectories(folder))
-		{
-			RemoveEmptyDirectories(directory);
-			if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
-			{
-				Directory.Delete(directory, false);
-			}
-		}
 	}
 }

@@ -86,6 +86,7 @@ try
 			configureConsole.ColorBehavior = LoggerColorBehavior.Disabled));
 #endif
 
+	_ = services.AddDoomerPublishTools();
 	_ = services.AddPublisher();
 }
 catch (Exception ex)
@@ -151,8 +152,6 @@ if (publisherResult?.Success == false)
 		{
 			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Running task: {publisherResult.Context.RunningTask.Name}");
 		}
-
-		_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{publisherResult.Exception!.Message}");
 	}
 
 	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
