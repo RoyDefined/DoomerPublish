@@ -1,4 +1,4 @@
-﻿namespace DoomerPublish.Tools.Shared;
+﻿namespace DoomerPublish.Tools.Common;
 
 /// <summary>
 /// Represents a todo item.

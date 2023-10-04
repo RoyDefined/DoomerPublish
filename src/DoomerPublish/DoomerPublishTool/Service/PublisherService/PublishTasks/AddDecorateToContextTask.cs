@@ -1,7 +1,7 @@
 ﻿using DoomerPublish.Tools;
 using DoomerPublish.Tools.Acs;
 using DoomerPublish.Tools.Decorate;
-using DoomerPublish.Tools.Shared;
+using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;

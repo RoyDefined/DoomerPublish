@@ -3,7 +3,7 @@ using DoomerPublish.Tools.Decorate;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
-namespace DoomerPublish.Tools.Shared;
+namespace DoomerPublish.Tools.Common;
 
 internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using DoomerPublish.Tools.Decorate;
-using DoomerPublish.Tools.Shared;
+using DoomerPublish.Tools.Common;
 
 namespace DoomerPublish.Tools.Decorate;
 
