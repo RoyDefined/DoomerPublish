@@ -34,10 +34,13 @@ public sealed class DecorateFile
 			throw new FileNotFoundException($"DECORATE file was not found: {filePath}.");
 		}
 
+		var directoryPath = Path.GetDirectoryName(filePath) ??
+			throw new InvalidOperationException($"Expected an absolute folder path with '{filePath}'");
+
 		return new()
 		{
 			Name = Path.GetFileName(filePath),
-			AbsoluteFolderPath = filePath,
+			AbsoluteFolderPath = directoryPath,
 			Content = await File.ReadAllTextAsync(filePath, cancellationToken)
 				.ConfigureAwait(false),
 		};

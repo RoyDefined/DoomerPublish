@@ -36,7 +36,7 @@ internal sealed class DefaultIncludeParser : IDecorateParser
 		decorateFile.IncludedFiles = new();
 		foreach (var includedFile in includedFiles)
 		{
-			var filePath = Path.Join(Path.GetDirectoryName(decorateFile.AbsoluteFolderPath), includedFile);
+			var filePath = Path.Join(decorateFile.AbsoluteFolderPath, includedFile);
 			var includedDecorateFile = await DecorateFile.FromPathAsync(filePath, cancellationToken)
 				.ConfigureAwait(false);
 
