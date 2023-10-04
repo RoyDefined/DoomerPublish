@@ -1,4 +1,5 @@
-﻿using DoomerPublish.Tools.Shared;
+﻿using DoomerPublish.Tools.Acs;
+using DoomerPublish.Tools.Shared;
 
 namespace DoomerPublish.Tools.Decorate;
 
@@ -22,7 +23,23 @@ public sealed class DecorateFile
 	public required string Name { get; init; }
 	public required string AbsoluteFolderPath { get; init; }
 	public required string Content { get; init; }
-	public required List<DecorateActor>? Actors { get; set; }
-	public required List<TodoItem>? Todos { get; set; }
-	public required List<DecorateFile>? IncludedFiles { get; set; }
+	public List<DecorateActor>? Actors { get; set; }
+	public List<TodoItem>? Todos { get; set; }
+	public List<DecorateFile>? IncludedFiles { get; set; }
+
+	internal static async Task<DecorateFile> FromPathAsync(string filePath, CancellationToken cancellationToken)
+	{
+		if (!File.Exists(filePath))
+		{
+			throw new FileNotFoundException($"DECORATE file was not found: {filePath}.");
+		}
+
+		return new()
+		{
+			Name = Path.GetFileName(filePath),
+			AbsoluteFolderPath = filePath,
+			Content = await File.ReadAllTextAsync(filePath, cancellationToken)
+				.ConfigureAwait(false),
+		};
+	}
 }
