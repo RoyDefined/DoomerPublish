@@ -1,0 +1,6 @@
+actor DevAsset : CustomInventory
+{
+	//$Category "Developer actors"
+}
+
+#include "actors/dev/devactor.dec"

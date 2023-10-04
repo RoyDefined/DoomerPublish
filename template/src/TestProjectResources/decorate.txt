@@ -1,0 +1,3 @@
+#include "actors/regularactor.dec"
+
+//@todo This is a todo item in a DECORATE file. It shows how DECORATE files can also contain todo items!

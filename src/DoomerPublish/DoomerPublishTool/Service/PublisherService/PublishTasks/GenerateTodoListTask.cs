@@ -1,6 +1,7 @@
-﻿using DoomerPublish.Tools.Acs;
+﻿using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace DoomerPublish.PublishTasks;
@@ -29,7 +30,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		// Usage Guidelines:
 		// - DO NOT manually edit this file unless you fully understand its purpose and structure.
 		// - If changes are necessary, request modification of the source code and regenerate the file.
-		// - If the todo item is not specific to the ACS source, advice making a seperate todo file.
+		// - If the todo item is not specific to the source file it has been written into, advice making a seperate todo file.
 		// - Reach out to the developer for assistance with any concerns.
 		""";
 
@@ -63,18 +64,25 @@ internal sealed class GenerateTodoListTask : IPublishTask
 
 	private async Task GenerateTodoListForProjectAsync(ProjectContext projectContext, string todoOutput, CancellationToken stoppingToken)
 	{
-		var baseLibraryFilesInContext = projectContext.MainAcsLibraryFiles;
+		// Combine ACS and DECORATE files together, or return an empty enumerable if they're not found.
+		var contextFilesEnumerator =
+			(projectContext.MainAcsLibraryFiles ??
+				Enumerable.Empty<IFileContext>())
+			.Concat(projectContext.MainDecorateFiles ??
+				Enumerable.Empty<IFileContext>());
+
+		var contextFiles = contextFilesEnumerator.ToList();
 
 		// This project has no files.
-		if (baseLibraryFilesInContext == null)
+		if (!contextFiles.Any())
 		{
-			this._logger.LogDebug("Project has no ACS library files.");
+			this._logger.LogInformation("Project has no files that might contain TODO items.");
 			return;
 		}
 
 		var stringBuilder = new StringBuilder();
 
-		foreach (var file in baseLibraryFilesInContext)
+		foreach (var file in contextFiles)
 		{
 			InsertTodos(file, stringBuilder);
 		}
@@ -103,7 +111,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		this._logger.LogInformation("Created todo list {Todo}", outputFile);
 	}
 
-	private static void InsertTodos(AcsFile file, StringBuilder stringBuilder)
+	private static void InsertTodos(IFileContext file, StringBuilder stringBuilder)
 	{
 		// The file has todo items.
 		if (file.Todos != null && file.Todos.Any())
@@ -119,12 +127,12 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		}
 
 		// Do the same for all its included files.
-		if (file.IncludedFiles == null)
+		if (file.IncludedFileContexts == null)
 		{
 			return;
 		}
 
-		foreach (var includedFile in file.IncludedFiles)
+		foreach (var includedFile in file.IncludedFileContexts)
 		{
 			InsertTodos(includedFile, stringBuilder);
 		}

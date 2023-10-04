@@ -58,7 +58,7 @@ public sealed class AcsMethodParameter
 /// <summary>
 /// Represents the contents of an ACS file.
 /// </summary>
-public sealed class AcsFile
+public sealed class AcsFile : IFileContext
 {
 	public required string Name { get; init; }
 	public required string AbsoluteFolderPath { get; init; }
@@ -69,6 +69,8 @@ public sealed class AcsFile
 	public List<AcsMethod>? Methods { get; set; }
 	public List<TodoItem>? Todos { get; set; }
 	public string? Library { get; set; }
+
+	public IEnumerable<IFileContext>? IncludedFileContexts => this.IncludedFiles?.Cast<IFileContext>();
 
 	internal static async Task<AcsFile> FromPathAsync(string filePath, CancellationToken cancellationToken)
 	{
