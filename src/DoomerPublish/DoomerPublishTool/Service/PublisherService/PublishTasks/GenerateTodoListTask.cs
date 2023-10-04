@@ -1,4 +1,4 @@
-﻿using DoomerPublish.Tools.Acs;
+﻿using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text;
@@ -29,7 +29,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		// Usage Guidelines:
 		// - DO NOT manually edit this file unless you fully understand its purpose and structure.
 		// - If changes are necessary, request modification of the source code and regenerate the file.
-		// - If the todo item is not specific to the ACS source, advice making a seperate todo file.
+		// - If the todo item is not specific to the source file it has been written into, advice making a seperate todo file.
 		// - Reach out to the developer for assistance with any concerns.
 		""";
 
@@ -103,7 +103,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		this._logger.LogInformation("Created todo list {Todo}", outputFile);
 	}
 
-	private static void InsertTodos(AcsFile file, StringBuilder stringBuilder)
+	private static void InsertTodos(IFileContext file, StringBuilder stringBuilder)
 	{
 		// The file has todo items.
 		if (file.Todos != null && file.Todos.Any())
@@ -119,12 +119,12 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		}
 
 		// Do the same for all its included files.
-		if (file.IncludedFiles == null)
+		if (file.IncludedFileContexts == null)
 		{
 			return;
 		}
 
-		foreach (var includedFile in file.IncludedFiles)
+		foreach (var includedFile in file.IncludedFileContexts)
 		{
 			InsertTodos(includedFile, stringBuilder);
 		}

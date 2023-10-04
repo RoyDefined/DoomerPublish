@@ -1,5 +1,4 @@
-﻿using DoomerPublish.Tools.Acs;
-using DoomerPublish.Tools.Common;
+﻿using DoomerPublish.Tools.Common;
 
 namespace DoomerPublish.Tools.Decorate;
 
@@ -18,7 +17,7 @@ public sealed class DecorateActor
 /// <summary>
 /// Represents the contents of a DECORATE file.
 /// </summary>
-public sealed class DecorateFile
+public sealed class DecorateFile : IFileContext
 {
 	public required string Name { get; init; }
 	public required string AbsoluteFolderPath { get; init; }
@@ -26,6 +25,8 @@ public sealed class DecorateFile
 	public List<DecorateActor>? Actors { get; set; }
 	public List<TodoItem>? Todos { get; set; }
 	public List<DecorateFile>? IncludedFiles { get; set; }
+
+	public IEnumerable<IFileContext>? IncludedFileContexts => this.IncludedFiles?.Cast<IFileContext>();
 
 	internal static async Task<DecorateFile> FromPathAsync(string filePath, CancellationToken cancellationToken)
 	{
