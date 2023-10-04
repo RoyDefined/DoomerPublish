@@ -1,0 +1,8 @@
+actor RegularActor 10001
+{
+	states
+	{
+		Spawn:
+			TNT1 A -1
+	}
+}

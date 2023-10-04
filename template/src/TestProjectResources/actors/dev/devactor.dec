@@ -1,0 +1,10 @@
+actor devactor : DevAsset 10002
+{
+	States
+	{
+		Spawn:
+			TNT1 A -1
+	}
+}
+
+//@todo This is a todo item in a DECORATE file that despicts a dev actor.
