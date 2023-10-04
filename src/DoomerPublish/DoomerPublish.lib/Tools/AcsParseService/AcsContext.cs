@@ -1,4 +1,6 @@
-﻿namespace DoomerPublish.Tools.Acs;
+﻿using DoomerPublish.Tools.Shared;
+
+namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
 /// Represents the type of method being defined.

@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
+﻿using DoomerPublish.Tools.Acs;
+using DoomerPublish.Tools.Decorate;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace DoomerPublish.Tools.Acs;
+namespace DoomerPublish.Tools.Shared;
 
-internal sealed class DefaultTodoParser : IAcsParser
+internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 {
 	private readonly ILogger _logger;
 
@@ -27,6 +23,22 @@ internal sealed class DefaultTodoParser : IAcsParser
 	/// <inheritdoc />
 	public Task ParseAsync(AcsFile acsFile, CancellationToken _)
 	{
+		var todoItems = this.ParseTodoContent(acsFile.Content);
+		acsFile.Todos = todoItems.ToList();
+
+		return Task.CompletedTask;
+	}
+
+	public Task ParseAsync(DecorateFile decorateFile, CancellationToken cancellationToken)
+	{
+		var todoItems = this.ParseTodoContent(decorateFile.Content);
+		decorateFile.Todos = todoItems.ToList();
+
+		return Task.CompletedTask;
+	}
+
+	private IEnumerable<TodoItem> ParseTodoContent(string content)
+	{
 		static int LineFromPos(string input, int indexPosition)
 		{
 			int lineNumber = 1;
@@ -40,7 +52,7 @@ internal sealed class DefaultTodoParser : IAcsParser
 			return lineNumber;
 		}
 
-		var todoMatchCollection = this._todoItemRegex.Matches(acsFile.Content);
+		var todoMatchCollection = this._todoItemRegex.Matches(content);
 
 		var todoItems = todoMatchCollection.Select(x =>
 		{
@@ -50,11 +62,10 @@ internal sealed class DefaultTodoParser : IAcsParser
 			return new TodoItem()
 			{
 				Value = todoGroup.Value,
-				Line = LineFromPos(acsFile.Content, todoGroup.Index),
+				Line = LineFromPos(content, todoGroup.Index),
 			};
-		}).ToList();
+		});
 
-		acsFile.Todos = todoItems;
-		return Task.CompletedTask;
+		return todoItems;
 	}
 }

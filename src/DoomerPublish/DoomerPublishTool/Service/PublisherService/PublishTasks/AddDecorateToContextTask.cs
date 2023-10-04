@@ -1,5 +1,6 @@
 ﻿using DoomerPublish.Tools;
 using DoomerPublish.Tools.Decorate;
+using DoomerPublish.Tools.Shared;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
