@@ -8,9 +8,6 @@ internal sealed class ProjectContext
 	public required string ProjectPath { get; set; }
 	public required string ProjectName { get; init; }
 
-	public string? AcsSourcePath { get; set; }
-	public List<string>? AcsSourceStrayFiles { get; set; }
-
 	/// <summary>
 	/// The root ACS files found in the acs_source folders.
 	/// </summary>

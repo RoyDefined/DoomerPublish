@@ -47,14 +47,14 @@ internal sealed class AddAcsSourceToContextTask : IPublishTask
 
 	private async Task CollectLibraryCodeForProjectAsync(ProjectContext project, CancellationToken stoppingToken)
 	{
-		// This project has no ACS source.
-		if (project.AcsSourcePath == null) {
-			this._logger.LogInformation("Project has no ACS source.");
+		var rootAcsFiles = this._acsService.GetRootAcsFilesFromSource(project.ProjectPath)
+			.ToArray();
+
+		// Project has no root ACS files.
+		if (!rootAcsFiles.Any())
+		{
 			return;
 		}
-
-		var rootAcsFiles = this._acsService.GetRootAcsFilesFromSource(project.AcsSourcePath)
-			.ToArray();
 
 		// Iterate each root acs file, and add the full context to the project's context.
 		await foreach (var libraryAcsFile in this.CollectLibraryCodeAsync(rootAcsFiles, stoppingToken))
