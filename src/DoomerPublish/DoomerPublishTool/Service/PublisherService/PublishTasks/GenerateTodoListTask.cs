@@ -1,6 +1,7 @@
 ﻿using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace DoomerPublish.PublishTasks;
@@ -63,18 +64,25 @@ internal sealed class GenerateTodoListTask : IPublishTask
 
 	private async Task GenerateTodoListForProjectAsync(ProjectContext projectContext, string todoOutput, CancellationToken stoppingToken)
 	{
-		var baseLibraryFilesInContext = projectContext.MainAcsLibraryFiles;
+		// Combine ACS and DECORATE files together, or return an empty enumerable if they're not found.
+		var contextFilesEnumerator =
+			(projectContext.MainAcsLibraryFiles ??
+				Enumerable.Empty<IFileContext>())
+			.Concat(projectContext.MainDecorateFiles ??
+				Enumerable.Empty<IFileContext>());
+
+		var contextFiles = contextFilesEnumerator.ToList();
 
 		// This project has no files.
-		if (baseLibraryFilesInContext == null)
+		if (!contextFiles.Any())
 		{
-			this._logger.LogDebug("Project has no ACS library files.");
+			this._logger.LogInformation("Project has no files that might contain TODO items.");
 			return;
 		}
 
 		var stringBuilder = new StringBuilder();
 
-		foreach (var file in baseLibraryFilesInContext)
+		foreach (var file in contextFiles)
 		{
 			InsertTodos(file, stringBuilder);
 		}
