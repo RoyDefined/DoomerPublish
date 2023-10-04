@@ -16,7 +16,6 @@ internal sealed class DefaultPublisherService : IPublisherService
 	{
 		typeof(AddProjectContextToMainContextTask),
 		typeof(CopyProjectToTempDirTask),
-		typeof(AddAcsSourcePathsToContextTask),
 		typeof(AddAcsSourceToContextTask),
 		typeof(AddDecorateToContextTask),
 		typeof(RemoveUnrelatedFilesTask),

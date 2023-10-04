@@ -45,7 +45,7 @@ internal sealed class DefaultIncludeParser : IAcsParser
 		acsFile.IncludedFiles = new();
 		foreach(var includedFile in includedFiles)
 		{
-			var filePath = Path.Join(Path.GetDirectoryName(acsFile.AbsoluteFolderPath), includedFile);
+			var filePath = Path.Join(acsFile.AbsoluteFolderPath, includedFile);
 			var includedAcsFile = await AcsFile.FromPathAsync(filePath, cancellationToken)
 				.ConfigureAwait(false);
 

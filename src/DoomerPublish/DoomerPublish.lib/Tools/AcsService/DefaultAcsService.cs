@@ -22,46 +22,20 @@ internal sealed class DefaultAcsService : IAcsService
 	}
 
 	/// <inheritdoc />
-	public AcsSourceFilesResult GetAcsSourceFiles(string projectRootPath)
-	{
-		this._logger.LogDebug("Start search for '{AcsSourceFolderName}' and stray files in project '{ProjectRootPath}'", AcsSourceFolderName, projectRootPath);
-		var acsSourceFolderPath = this.GetAcsSourceFolderPath(projectRootPath);
-		var strayAcsFiles = this.GetStrayAcsSourceFiles(projectRootPath, acsSourceFolderPath)
-			.ToList();
-
-		return new()
-		{
-			AcsSourceFolderPath = acsSourceFolderPath,
-			StrayAcsFilePaths = strayAcsFiles,
-		};
-	}
-
-	/// <inheritdoc />
 	public IEnumerable<string> GetRootAcsFilesFromSource(string sourceFolderPath)
 	{
-		return Directory.EnumerateFiles(sourceFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+		var acsSourceFolderPath = Path.Join(sourceFolderPath, AcsSourceFolderName);
+
+		// No source folder found.
+		if (!Directory.Exists(acsSourceFolderPath))
+		{
+			this._logger.LogInformation("Project contains no {AcsSourceFolderName} at '{AcsSourceFolderPath}'.", AcsSourceFolderName, acsSourceFolderPath);
+			return Enumerable.Empty<string>();
+		}
+
+		return Directory.EnumerateFiles(acsSourceFolderPath, "*.*", SearchOption.TopDirectoryOnly)
 			.Where(x => this._acsFileRegex.IsMatch(x) &&
 				!x.EndsWith(".g.acs", StringComparison.OrdinalIgnoreCase) &&
 				!x.EndsWith(".g.bcs", StringComparison.OrdinalIgnoreCase));
-	}
-
-	private string? GetAcsSourceFolderPath(string projectRootPath)
-	{
-		return Directory.GetDirectories(projectRootPath, AcsSourceFolderName, SearchOption.AllDirectories)
-			.SingleOrDefault();
-	}
-
-	private IEnumerable<string> GetStrayAcsSourceFiles(string projectRootPath, string? acsSourceFolderPath)
-	{
-		if (!Path.Exists(projectRootPath))
-		{
-			throw new InvalidOperationException($"ACS source folder path not found: {projectRootPath}");
-		}
-
-		return Directory.EnumerateFiles(projectRootPath, "*.*", SearchOption.AllDirectories)
-			.Where(x => this._acsFileRegex.IsMatch(x) &&
-				!x.EndsWith(".g.acs", StringComparison.OrdinalIgnoreCase) &&
-				!x.EndsWith(".g.bcs", StringComparison.OrdinalIgnoreCase) &&
-				!DirectoryUtils.IsDirectoryInPath(acsSourceFolderPath, x));
 	}
 }
