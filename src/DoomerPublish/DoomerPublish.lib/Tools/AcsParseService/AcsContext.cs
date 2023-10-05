@@ -13,7 +13,6 @@ public enum AcsMethodType
 /// <summary>
 /// Represents a parameter type.
 /// </summary>
-// TODO: Remove fixed since it's not a valid type.
 public enum AcsMethodParameterType
 {
 	@void, @int, @bool, str, @fixed, special

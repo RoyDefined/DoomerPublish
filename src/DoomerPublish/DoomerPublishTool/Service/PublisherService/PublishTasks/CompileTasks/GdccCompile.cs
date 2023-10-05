@@ -7,8 +7,12 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class GdccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "gdcc";
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CompileType compileType, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??

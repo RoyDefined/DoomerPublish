@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default enum parser to parse an enum.
+/// </summary>
 internal sealed class DefaultEnumParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

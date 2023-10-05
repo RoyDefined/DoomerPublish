@@ -4,16 +4,23 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Repesents the default implementation for <see cref="IAcsService"/>.
+/// </summary>
 internal sealed class DefaultAcsService : IAcsService
 {
+	/// <inheritdoc cref="ILogger" />
+	private readonly ILogger _logger;
+
+	/// <summary>
+	/// A constant that represents the folder name of the ACS source.
+	/// </summary>
 	public const string AcsSourceFolderName = "acs_source";
 
 	/// <summary>
 	/// Regex to find an ACS file.
 	/// </summary>
 	private readonly Regex _acsFileRegex = new(@".*\.(acs|bcs)$", RegexOptions.IgnoreCase);
-
-	private readonly ILogger _logger;
 
 	public DefaultAcsService(
 		ILogger<DefaultAcsService> logger)

@@ -32,6 +32,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 		// - Reach out to the developer for assistance with any concerns.
 		""";
 
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public GenerateDecorateSummaryTask(

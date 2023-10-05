@@ -1,18 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default include parser to parse file inclusions.
+/// </summary>
 internal sealed class DefaultIncludeParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

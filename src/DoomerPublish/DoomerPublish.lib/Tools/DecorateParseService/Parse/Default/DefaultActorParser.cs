@@ -3,8 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Represents the default parser to parse an actor definition.
+/// </summary>
 internal sealed class DefaultActorParser : IDecorateParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

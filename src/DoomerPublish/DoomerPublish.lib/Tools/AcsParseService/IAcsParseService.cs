@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using DoomerPublish.Utils;
-using System.Text.RegularExpressions;
+﻿namespace DoomerPublish.Tools.Acs;
 
-namespace DoomerPublish.Tools.Acs;
-
+/// <summary>
+/// Represents a class that implements parsing an <see cref="AcsFile"/>.
+/// </summary>
 public interface IAcsParseService
 {
 	/// <summary>

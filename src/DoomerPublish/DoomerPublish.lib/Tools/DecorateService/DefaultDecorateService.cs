@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using DoomerPublish.Utils;
 using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Repesents the default implementation for <see cref="IDecorateService"/>.
+/// </summary>
 internal sealed class DefaultDecorateService : IDecorateService
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

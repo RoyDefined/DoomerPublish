@@ -14,6 +14,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class AddDecorateToContextTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 	private readonly IDecorateService _decorateService;
 	private readonly IDecorateParseService _decorateParseService;

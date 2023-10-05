@@ -8,6 +8,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class RemoveAcsSourceTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public RemoveAcsSourceTask(

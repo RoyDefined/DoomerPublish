@@ -1,5 +1,8 @@
 ﻿namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Represents a class that implements parsing an <see cref="DecorateFile"/>.
+/// </summary>
 public interface IDecorateParseService
 {
 	/// <summary>

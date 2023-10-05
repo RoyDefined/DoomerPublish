@@ -6,8 +6,12 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class AccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "acc";
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??

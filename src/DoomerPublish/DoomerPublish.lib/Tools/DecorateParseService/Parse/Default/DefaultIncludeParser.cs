@@ -1,12 +1,14 @@
-﻿using DoomerPublish.Tools.Acs;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Represents the default include parser to parse file inclusions.
+/// </summary>
 internal sealed class DefaultIncludeParser : IDecorateParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

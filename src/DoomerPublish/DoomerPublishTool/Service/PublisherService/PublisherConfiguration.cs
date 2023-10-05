@@ -4,6 +4,9 @@ namespace DoomerPublish;
 
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
 
+/// <summary>
+/// Represents the compiler to use during publishing.
+/// </summary>
 public enum CompileType
 {
 	Unknown,
@@ -13,6 +16,9 @@ public enum CompileType
 	GdccC
 };
 
+/// <summary>
+/// Represents the engine to target during publishing.
+/// </summary>
 public enum EngineType
 {
 	Unknown,
@@ -21,6 +27,9 @@ public enum EngineType
 	Eternity
 };
 
+/// <summary>
+/// Represents all configurable configuration for a publish process.
+/// </summary>
 public class PublisherConfiguration
 {
 	[Value(index: 0, Required = true, HelpText = "Absolute path to the project directory.")]

@@ -8,6 +8,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class RemoveEmptyDirectoriesTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public RemoveEmptyDirectoriesTask(

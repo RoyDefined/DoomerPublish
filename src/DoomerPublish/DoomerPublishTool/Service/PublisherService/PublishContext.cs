@@ -3,6 +3,9 @@ using DoomerPublish.Tools.Decorate;
 
 namespace DoomerPublish;
 
+/// <summary>
+/// Represents the main project context containing all collected data.
+/// </summary>
 internal sealed class ProjectContext
 {
 	public required string ProjectPath { get; set; }

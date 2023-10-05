@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace DoomerPublish.Tools.Acs;
 
-namespace DoomerPublish.Tools.Acs;
-
+/// <summary>
+/// Represents a class that implements a parser to parse an <see cref="AcsFile"/>.
+/// </summary>
 internal interface IAcsParser
 {
 	/// <summary>

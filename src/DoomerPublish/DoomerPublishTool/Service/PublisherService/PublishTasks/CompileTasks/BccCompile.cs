@@ -6,9 +6,17 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class BccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "bcc";
+
+	/// <summary>
+	/// A regex that will match the expected executable name of the compiler. This exists because there are multiple possible names for this compiler.
+	/// </summary>
 	public static readonly Regex executableRegex = new(@"^(zt-)?bcc.exe$", RegexOptions.IgnoreCase);
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??

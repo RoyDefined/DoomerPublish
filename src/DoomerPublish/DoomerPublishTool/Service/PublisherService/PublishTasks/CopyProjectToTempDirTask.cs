@@ -10,6 +10,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class CopyProjectToTempDirTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public CopyProjectToTempDirTask(
