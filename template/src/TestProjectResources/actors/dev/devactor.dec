@@ -1,5 +1,8 @@
 actor devactor : DevAsset 10002
 {
+	//$Category "Text project / development"
+	//$NotAngled
+	
 	States
 	{
 		Spawn:
