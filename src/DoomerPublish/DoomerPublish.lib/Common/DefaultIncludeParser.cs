@@ -33,7 +33,6 @@ internal sealed class DefaultIncludeParser : IAcsParser, IDecorateParser
 			// Do not include zcommon.
 			.Where(x => !x.StartsWith("zcommon", StringComparison.OrdinalIgnoreCase));
 
-		// Convert to AcsFile.
 		acsFile.IncludedFiles = new();
 		foreach(var includedFile in includedFiles)
 		{
@@ -51,7 +50,6 @@ internal sealed class DefaultIncludeParser : IAcsParser, IDecorateParser
 	{
 		var includedFiles = this.ParseIncludeContent(decorateFile.Content);
 
-		// Convert to AcsFile.
 		decorateFile.IncludedFiles = new();
 		foreach (var includedFile in includedFiles)
 		{
