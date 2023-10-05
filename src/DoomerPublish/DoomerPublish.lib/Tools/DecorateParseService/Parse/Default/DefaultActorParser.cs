@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Tools.Acs;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Decorate;
@@ -47,6 +48,13 @@ internal sealed class DefaultActorParser : IDecorateParser
 		}).ToList();
 
 		decorateFile.Actors = actors;
+
+		var count = decorateFile.Actors.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} actor(s).", count);
+		}
+		
 		return Task.CompletedTask;
 	}
 }

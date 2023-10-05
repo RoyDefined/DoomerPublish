@@ -103,8 +103,6 @@ internal sealed class DefaultAcsParseService : IAcsParseService
 			var taskInstance = ActivatorUtilities.CreateInstance(this._serviceProvider, task) as IAcsParser ??
 				throw new InvalidOperationException($"Task does not implement {nameof(IAcsParser)}: {task.Name}");
 
-			this._logger.LogDebug("Starting next parse task: {TaskName}", task.Name);
-
 			try
 			{
 				await taskInstance.ParseAsync(acsFile, cancellationToken)

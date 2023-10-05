@@ -55,7 +55,11 @@ internal sealed class DefaultEnumParser : IAcsParser
 		acsFile.EnumLibdefines = this.EnumerateFilteredEnumLines(filteredLines)
 			.ToList();
 
-		this._logger.LogDebug("Found {EnumCount} enum(s).", acsFile.EnumLibdefines.Count);
+		var count = acsFile.EnumLibdefines.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} enum(s).", count);
+		}
 		return Task.CompletedTask;
 	}
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using DoomerPublish.Tools.Decorate;
 using DoomerPublish.Tools.Common;
+using DoomerPublish.Tools.Acs;
 
 namespace DoomerPublish.Tools.Decorate;
 
@@ -72,12 +73,12 @@ internal sealed class DefaultDecorateParseService : IDecorateParseService
 	/// <returns>An awaitable task.</returns>
 	private async Task ParseFileWithTasksAsync(DecorateFile decorateFile, List<Type> parseTasks, CancellationToken cancellationToken)
 	{
+		this._logger.LogDebug("Starting parsing file: {FilePath}", Path.Join(decorateFile.AbsoluteFolderPath, decorateFile.Name));
+
 		foreach (var task in parseTasks)
 		{
 			var taskInstance = ActivatorUtilities.CreateInstance(this._serviceProvider, task) as IDecorateParser ??
 				throw new InvalidOperationException($"Task does not implement {nameof(IDecorateParser)}: {task.Name}");
-
-			this._logger.LogInformation("Starting next parse task: {TaskName}", task.Name);
 
 			try
 			{

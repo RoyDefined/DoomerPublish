@@ -42,6 +42,7 @@ internal sealed class DefaultIncludeParser : IDecorateParser
 			var includedDecorateFile = await DecorateFile.FromPathAsync(filePath, cancellationToken)
 				.ConfigureAwait(false);
 
+			this._logger.LogDebug("Found included file '{IncludedFilePath}'.", filePath);
 			decorateFile.IncludedFiles.Add(includedDecorateFile);
 		}
 	}

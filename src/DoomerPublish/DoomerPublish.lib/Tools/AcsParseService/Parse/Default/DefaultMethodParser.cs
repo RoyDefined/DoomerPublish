@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Tools.Decorate;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Acs;
@@ -93,7 +94,11 @@ internal sealed class DefaultMethodParser : IAcsParser
 
 		acsFile.Methods = acsMethods.ToList();
 
-		this._logger.LogDebug("Found {MethodCount} method(s).", acsFile.Methods.Count);
+		var count = acsFile.Methods.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} method(s).", count);
+		}
 		return Task.CompletedTask;
 	}
 
