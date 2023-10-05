@@ -10,6 +10,9 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal abstract class Compiler
 {
+	public const string InputFolder = "acs_source";
+	public const string OutputFolder = "acs";
+
 	/// <summary>
 	/// Calls the target compiler with the given arguments.
 	/// </summary>

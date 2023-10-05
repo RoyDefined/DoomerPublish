@@ -75,8 +75,8 @@ internal sealed class BccCompile : Compiler
 			var fileName = Path.GetFileNameWithoutExtension(libraryFile.Name);
 
 			var arguments = new List<string>();
-			var input = Path.Join(projectContext.ProjectPath, CompileTask.InputFolder, libraryFile.Name);
-			var output = Path.Join(projectContext.ProjectPath, CompileTask.OutputFolder, fileName + ".o");
+			var input = Path.Join(projectContext.ProjectPath, Compiler.InputFolder, libraryFile.Name);
+			var output = Path.Join(projectContext.ProjectPath, Compiler.OutputFolder, fileName + ".o");
 
 			var stdOutLogFile = Path.Join(logOutputDirectory, $"compileresult_{projectContext.ProjectName}_{fileName}.txt");
 			var stdErrLogFile = Path.Join(logOutputDirectory, $"compileresult_error_{projectContext.ProjectName}_{fileName}.txt");
