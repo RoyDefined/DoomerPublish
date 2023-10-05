@@ -1,0 +1,7 @@
+
+enum IntegerEnumeration {
+	PublicInteger = 5,
+	AnotherPublicInteger,
+	yetAnotherPublicInteger = 10,
+};
+

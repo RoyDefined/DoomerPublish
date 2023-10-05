@@ -1,0 +1,31 @@
+strict namespace {
+
+	// @todo: Handle this todo item, which only exists to show how todo items work.
+	// @todo I am also a todo item!
+	
+	private enum : fixed
+	{
+		PrivateFixed = 10.1,
+		AnotherPrivateFixed = 10.2,
+	};
+	
+	enum : fixed
+	{
+		PublicFixed = 20.2,
+		AnotherPublicFixed = 20.3
+	};
+	
+	enum {
+		PublicInteger = 5,
+		AnotherPublicInteger,
+		YetAnotherPublicInteger = 10,
+	};
+	
+	enum NamedIntegerEnumT : int
+	{
+		PublicNamedInteger = 12,
+		AnotherPublicNamedInteger,
+		YetAnotherPublicNamedInteger = 15,
+	};
+}
+
