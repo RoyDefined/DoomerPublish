@@ -37,6 +37,8 @@ internal sealed class DefaultLibdefineParser : IAcsParser
 			});
 
 		acsFile.LibDefines = libdefinesParsed.ToList();
+
+		this._logger.LogDebug("Found {LibdefineCount} libdefine(s).", acsFile.LibDefines.Count);
 		return Task.CompletedTask;
 	}
 }

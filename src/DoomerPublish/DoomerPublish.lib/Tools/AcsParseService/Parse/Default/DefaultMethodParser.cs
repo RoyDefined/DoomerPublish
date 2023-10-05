@@ -92,6 +92,8 @@ internal sealed class DefaultMethodParser : IAcsParser
 		});
 
 		acsFile.Methods = acsMethods.ToList();
+
+		this._logger.LogDebug("Found {MethodCount} method(s).", acsFile.Methods.Count);
 		return Task.CompletedTask;
 	}
 

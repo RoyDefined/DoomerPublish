@@ -45,6 +45,7 @@ internal sealed class DefaultIncludeParser : IAcsParser
 			var includedAcsFile = await AcsFile.FromPathAsync(filePath, cancellationToken)
 				.ConfigureAwait(false);
 
+			this._logger.LogDebug("Found included file '{IncludedFilePath}'.", filePath);
 			acsFile.IncludedFiles.Add(includedAcsFile);
 		}
 	}
