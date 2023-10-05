@@ -77,6 +77,9 @@ public class PublisherConfiguration
 	[Option(longName: "removeAcs", Required = false, HelpText = "Specify to remove the acs source.")]
 	public bool RemoveAcsSource { get; init; }
 
+	[Option(longName: "stripFiles", Required = false, HelpText = "Specify to strip base files ending in the given string or strings from the project. This will also strip included files.")]
+	public IEnumerable<string>? Stripfiles { get; init; }
+
 	[Option(longName: "removeUnrelated", Required = false, HelpText = "Specify to remove unrelated files.")]
 	public bool RemoveUnrelatedFiles { get; init; }
 

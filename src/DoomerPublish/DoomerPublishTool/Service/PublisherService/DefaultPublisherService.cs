@@ -29,6 +29,7 @@ internal sealed class DefaultPublisherService : IPublisherService
 		typeof(GeneratePublicAcsSourceTask),
 		typeof(GenerateTodoListTask),
 		typeof(GenerateDecorateSummaryTask),
+		typeof(StripFilesTask),
 		typeof(CompileTask),
 		typeof(RemoveAcsSourceTask),
 		typeof(PackDecorateTask),
