@@ -1,5 +1,8 @@
 actor RegularActor 10001
 {
+	//$Category "Text project"
+	//$NotAngled
+	
 	states
 	{
 		Spawn:
