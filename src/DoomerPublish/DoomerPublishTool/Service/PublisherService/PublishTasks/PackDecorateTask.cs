@@ -34,7 +34,7 @@ internal sealed class PackDecorateTask : IPublishTask
 	/// <summary>
 	/// Regex to find any sort of comment or empty line.
 	/// </summary>
-	private readonly Regex _commentWhitelineRegex = new(@"^(\s*\/\/|\s*\/\*[\w\d\(\)\"",.\s]*\*\/|\s*$)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+	private readonly Regex _commentWhitelineRegex = new(@"^(\s*\/\/[^$]|\s*\/\*[\w\d\(\)\"",.\s]*\*\/|\s*$)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
 	/// <summary>
 	/// Regex to determine an included file.
