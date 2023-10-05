@@ -3,8 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default parser that parses a library definition from a file.
+/// </summary>
 internal sealed class DefaultLibraryParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>

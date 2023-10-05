@@ -1,15 +1,5 @@
-﻿using DoomerPublish.Tools;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using DoomerPublish.Tools.Acs;
 
 namespace DoomerPublish.PublishTasks;
@@ -19,6 +9,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class AddAcsSourceToContextTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 	private readonly IAcsService _acsService;
 	private readonly IAcsParseService _acsParseService;

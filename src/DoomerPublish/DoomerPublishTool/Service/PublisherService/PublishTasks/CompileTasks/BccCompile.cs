@@ -6,9 +6,17 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class BccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "bcc";
+
+	/// <summary>
+	/// A regex that will match the expected executable name of the compiler. This exists because there are multiple possible names for this compiler.
+	/// </summary>
 	public static readonly Regex executableRegex = new(@"^(zt-)?bcc.exe$", RegexOptions.IgnoreCase);
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??
@@ -67,8 +75,8 @@ internal sealed class BccCompile : Compiler
 			var fileName = Path.GetFileNameWithoutExtension(libraryFile.Name);
 
 			var arguments = new List<string>();
-			var input = Path.Join(projectContext.ProjectPath, CompileTask.InputFolder, libraryFile.Name);
-			var output = Path.Join(projectContext.ProjectPath, CompileTask.OutputFolder, fileName + ".o");
+			var input = Path.Join(projectContext.ProjectPath, Compiler.InputFolder, libraryFile.Name);
+			var output = Path.Join(projectContext.ProjectPath, Compiler.OutputFolder, fileName + ".o");
 
 			var stdOutLogFile = Path.Join(logOutputDirectory, $"compileresult_{projectContext.ProjectName}_{fileName}.txt");
 			var stdErrLogFile = Path.Join(logOutputDirectory, $"compileresult_error_{projectContext.ProjectName}_{fileName}.txt");

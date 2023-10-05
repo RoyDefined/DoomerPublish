@@ -9,6 +9,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class PackToOutputTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public PackToOutputTask(

@@ -8,9 +8,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class CompileTask : IPublishTask
 {
-	public const string InputFolder = "acs_source";
-	public const string OutputFolder = "acs";
-
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public CompileTask(

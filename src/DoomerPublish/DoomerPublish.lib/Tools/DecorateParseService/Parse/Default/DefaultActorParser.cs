@@ -1,10 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Tools.Acs;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Represents the default parser to parse an actor definition.
+/// </summary>
 internal sealed class DefaultActorParser : IDecorateParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>
@@ -43,6 +48,13 @@ internal sealed class DefaultActorParser : IDecorateParser
 		}).ToList();
 
 		decorateFile.Actors = actors;
+
+		var count = decorateFile.Actors.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} actor(s).", count);
+		}
+		
 		return Task.CompletedTask;
 	}
 }

@@ -5,8 +5,12 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Common;
 
+/// <summary>
+/// Represents the default TODO parser to parse todo items that exist in a given file.
+/// </summary>
 internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>
@@ -29,6 +33,7 @@ internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 		return Task.CompletedTask;
 	}
 
+	/// <inheritdoc />
 	public Task ParseAsync(DecorateFile decorateFile, CancellationToken cancellationToken)
 	{
 		var todoItems = this.ParseTodoContent(decorateFile.Content);
@@ -37,13 +42,20 @@ internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 		return Task.CompletedTask;
 	}
 
+	/// <summary>
+	/// Parses the todo items that can be found in the given <paramref name="content"/>.
+	/// </summary>
+	/// <param name="content">The content to parse.</param>
+	/// <returns>An enumerable containing the parsed todo items.</returns>
 	private IEnumerable<TodoItem> ParseTodoContent(string content)
 	{
+		// Submethod to determine the actual line a todo was on, by navigating the input and checking for new lines.
 		static int LineFromPos(string input, int indexPosition)
 		{
 			int lineNumber = 1;
 			for (int i = 0; i < indexPosition; i++)
 			{
+				// TODO: Improve this.
 				if (input[i] == '\n')
 				{
 					lineNumber++;

@@ -1,16 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
+﻿using DoomerPublish.Tools.Decorate;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default parser to parse a function or method.
+/// </summary>
 internal sealed class DefaultMethodParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>
@@ -94,6 +93,12 @@ internal sealed class DefaultMethodParser : IAcsParser
 		});
 
 		acsFile.Methods = acsMethods.ToList();
+
+		var count = acsFile.Methods.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} method(s).", count);
+		}
 		return Task.CompletedTask;
 	}
 

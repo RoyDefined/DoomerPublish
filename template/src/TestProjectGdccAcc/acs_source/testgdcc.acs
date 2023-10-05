@@ -5,6 +5,7 @@
 
 // Included files
 #include "test_project/common.acs"
+#include "test_project/enums.acs"
 
 // @public
 // @summary Prints out the current environment on the screen.

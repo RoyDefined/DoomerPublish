@@ -5,13 +5,20 @@ using System.Net;
 
 namespace DoomerPublish;
 
+/// <summary>
+/// The default implementation of <see cref="IPublisherService"/>.
+/// </summary>
 internal sealed class DefaultPublisherService : IPublisherService
 {
 	/// <inheritdoc cref="ILogger"/>
 	private readonly ILogger _logger;
 
+	/// <inheritdoc cref="IServiceProvider"/>
 	private readonly IServiceProvider _serviceProvider;
 
+	/// <summary>
+	/// This represents all the tasks in order that must be invoked.
+	/// </summary>
 	private readonly List<Type> _tasks = new()
 	{
 		typeof(AddProjectContextToMainContextTask),

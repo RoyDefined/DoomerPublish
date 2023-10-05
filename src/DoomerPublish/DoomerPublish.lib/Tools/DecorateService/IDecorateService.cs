@@ -1,5 +1,8 @@
 ﻿namespace DoomerPublish.Tools.Decorate;
 
+/// <summary>
+/// Represents a class that implements common DECORATE methods.
+/// </summary>
 public interface IDecorateService
 {
 	/// <summary>

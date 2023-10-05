@@ -8,14 +8,15 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class RemoveUnrelatedFilesTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
+	private readonly ILogger _logger;
+
 	private readonly List<Regex> _filesToIgnore = new()
 	{
 		new(@"^.gitignore$", RegexOptions.IgnoreCase),
 		new(@"^[a-z]+.dbs?", RegexOptions.IgnoreCase),
 		new(@"^[a-z]+.wad.backup[1-9]?", RegexOptions.IgnoreCase),
 	};
-
-	private readonly ILogger _logger;
 
 	public RemoveUnrelatedFilesTask(
 		ILogger<RemoveUnrelatedFilesTask> logger)

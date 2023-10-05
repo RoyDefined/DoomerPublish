@@ -41,6 +41,7 @@ internal sealed class PackDecorateTask : IPublishTask
 	/// </summary>
 	private readonly Regex _includeRegex = new(@"#include ""(?<file>[\w\d\/\\\.]+)""", RegexOptions.IgnoreCase);
 
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public PackDecorateTask(

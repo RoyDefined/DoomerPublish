@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default enum parser to parse an enum.
+/// </summary>
 internal sealed class DefaultEnumParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>
@@ -57,6 +55,11 @@ internal sealed class DefaultEnumParser : IAcsParser
 		acsFile.EnumLibdefines = this.EnumerateFilteredEnumLines(filteredLines)
 			.ToList();
 
+		var count = acsFile.EnumLibdefines.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} enum(s).", count);
+		}
 		return Task.CompletedTask;
 	}
 

@@ -1,16 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DoomerPublish.Tools.Acs;
 
+/// <summary>
+/// Represents the default parser to parse libdefines that exist in a file.
+/// </summary>
 internal sealed class DefaultLibdefineParser : IAcsParser
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	/// <summary>
@@ -39,6 +37,12 @@ internal sealed class DefaultLibdefineParser : IAcsParser
 			});
 
 		acsFile.LibDefines = libdefinesParsed.ToList();
+
+		var count = acsFile.LibDefines.Count;
+		if (count > 0)
+		{
+			this._logger.LogDebug("Found {Count} libdefine(s).", count);
+		}
 		return Task.CompletedTask;
 	}
 }
