@@ -1,4 +1,5 @@
 ﻿using DoomerPublish.Tools.Acs;
+using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 
 namespace DoomerPublish.PublishTasks;
@@ -30,11 +31,42 @@ internal sealed class StripFilesTask : IPublishTask
 			return Task.CompletedTask;
 		}
 
-#pragma warning disable IDE0059
 		var projectContext = context.ProjectContext ??
 			throw new InvalidOperationException("Expected a project context.");
-#pragma warning restore IDE0059
 
-		throw new NotImplementedException();
+		foreach(var stripFileExtension in context.Configuration.Stripfiles)
+		{
+			var files = projectContext.MainDecorateFiles?
+				.Cast<IFileContext>()
+				.Where(x => x.Name.EndsWith(stripFileExtension, StringComparison.OrdinalIgnoreCase));
+
+			if (files == null || !files.Any()) {
+				continue;
+			}
+
+			this.RemoveFiles(files);
+		}
+
+		return Task.CompletedTask;
+	}
+
+	private void RemoveFiles(IEnumerable<IFileContext> files)
+	{
+		foreach(var file in files)
+		{
+			var filePath = Path.Join(file.AbsoluteFolderPath, file.Name);
+			if (!File.Exists(filePath)) {
+				throw new FileNotFoundException($"The file to delete could not be found: {filePath}", file.Name);
+			}
+
+			this._logger.LogDebug("Deleting stripped file '{FilePath}'.", filePath);
+			File.Delete(filePath);
+			file.StripFromOutput = true;
+
+			if (file.IncludedFileContexts != null)
+			{
+				this.RemoveFiles(file.IncludedFileContexts);
+			}
+		}
 	}
 }

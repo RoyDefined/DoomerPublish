@@ -9,6 +9,9 @@ public interface IFileContext
 	string AbsoluteFolderPath { get; }
 	string Content { get; }
 
+	// Specifies if this file should be stripped from the eventual output.
+	bool StripFromOutput { get; set; }
+
 	List<TodoItem>? Todos { get; set; }
 	IEnumerable<IFileContext>? IncludedFileContexts { get; }
 }

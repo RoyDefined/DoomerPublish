@@ -26,6 +26,9 @@ public sealed class DecorateFile : IFileContext
 	public List<TodoItem>? Todos { get; set; }
 	public List<DecorateFile>? IncludedFiles { get; set; }
 
+	/// <inheritdoc />
+	public bool StripFromOutput { get; set; }
+
 	public IEnumerable<IFileContext>? IncludedFileContexts => this.IncludedFiles?.Cast<IFileContext>();
 
 	internal static async Task<DecorateFile> FromPathAsync(string filePath, CancellationToken cancellationToken)
