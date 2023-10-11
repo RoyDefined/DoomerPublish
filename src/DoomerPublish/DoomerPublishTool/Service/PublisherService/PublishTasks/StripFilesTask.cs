@@ -12,6 +12,17 @@ internal sealed class StripFilesTask : IPublishTask
 	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
+	/// <summary>
+	/// This is the list of folders that should be looked into and stripped based on the provided parameters.
+	/// </summary>
+	private readonly List<string> _stripFolders = new()
+	{
+		"graphics",
+		"patches",
+		"sprites",
+		"textures",
+	};
+
 	public StripFilesTask(
 		ILogger<StripFilesTask> logger)
 	{
@@ -34,20 +45,26 @@ internal sealed class StripFilesTask : IPublishTask
 		var projectContext = context.ProjectContext ??
 			throw new InvalidOperationException("Expected a project context.");
 
-		foreach(var stripFileExtension in context.Configuration.Stripfiles)
+		this.StripFiles(projectContext, context.Configuration.Stripfiles);
+		this.StripFolders(projectContext, context.Configuration.Stripfiles);
+		return Task.CompletedTask;
+	}
+
+	private void StripFiles(ProjectContext projectContext, IEnumerable<string> fileSuffixes)
+	{
+		foreach (var stripFileExtension in fileSuffixes)
 		{
 			var files = projectContext.MainDecorateFiles?
 				.Cast<IFileContext>()
 				.Where(x => x.Name.EndsWith(stripFileExtension, StringComparison.OrdinalIgnoreCase));
 
-			if (files == null || !files.Any()) {
+			if (files == null || !files.Any())
+			{
 				continue;
 			}
 
 			this.RemoveFiles(files);
 		}
-
-		return Task.CompletedTask;
 	}
 
 	private void RemoveFiles(IEnumerable<IFileContext> files)
@@ -66,6 +83,29 @@ internal sealed class StripFilesTask : IPublishTask
 			if (file.IncludedFileContexts != null)
 			{
 				this.RemoveFiles(file.IncludedFileContexts);
+			}
+		}
+	}
+
+	private void StripFolders(ProjectContext projectContext, IEnumerable<string> fileSuffixes)
+	{
+		foreach(var folder in this._stripFolders)
+		{
+			// Find the target folder
+			var folderPath = Path.Join(projectContext.ProjectPath, folder);
+			if (!Directory.Exists(folderPath)) {
+				continue;
+			}
+
+			foreach (var stripFileExtension in fileSuffixes)
+			{
+				var stripFolderPath = Path.Join(folderPath, stripFileExtension);
+				if (!Directory.Exists(stripFolderPath)) {
+					continue;
+				}
+
+				this._logger.LogDebug("Removing stripped folder {FolderPath}.", stripFolderPath);
+				Directory.Delete(stripFolderPath, true);
 			}
 		}
 	}
