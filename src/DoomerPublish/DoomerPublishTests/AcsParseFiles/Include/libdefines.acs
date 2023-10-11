@@ -1,0 +1,11 @@
+// BCC would not compile this, but we're not worried of valid syntax when we parse this since that's not our problem.
+
+#define PRIVATEDEFINEONE 5
+#define PRIVATEDEFINETWO 1 << 0
+#define PRIVATEDEFINETHREE 10.5
+#define PRIVATEDEFINEFOUR "foo"
+
+#libdefine PUBLICDEFINEONE 15
+#libdefine PUBLICDEFINETWO 1 << 1
+#libdefine PUBLICDEFINETHREE 20.5
+#libdefine PUBLICDEFINEFOUR "bar"
