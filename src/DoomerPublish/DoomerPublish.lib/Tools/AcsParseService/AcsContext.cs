@@ -69,6 +69,9 @@ public sealed class AcsFile : IFileContext
 	public List<TodoItem>? Todos { get; set; }
 	public string? Library { get; set; }
 
+	/// <inheritdoc />
+	public bool StripFromOutput { get; set; }
+
 	public IEnumerable<IFileContext>? IncludedFileContexts => this.IncludedFiles?.Cast<IFileContext>();
 
 	internal static async Task<AcsFile> FromPathAsync(string filePath, CancellationToken cancellationToken)

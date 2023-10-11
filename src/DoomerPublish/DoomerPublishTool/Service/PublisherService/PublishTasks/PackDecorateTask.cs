@@ -83,6 +83,11 @@ internal sealed class PackDecorateTask : IPublishTask
 		var stringBuilder = new StringBuilder();
 		foreach (var decorateFile in decorateFiles)
 		{
+			// Do not process this decorate file if it's stripped from the output.
+			if (decorateFile.StripFromOutput) {
+				continue;
+			}
+
 			this.RecursiveProcessDecorateFile(decorateFile, stringBuilder);
 		}
 
