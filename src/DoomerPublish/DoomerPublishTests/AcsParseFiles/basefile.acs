@@ -1,0 +1,8 @@
+#library "basefile"
+#nocompact
+
+#import "zcommon.bcs"
+
+#include "Include/enums.acs"
+#include "Include/functions.acs"
+#include "Include/scripts.acs"

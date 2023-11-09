@@ -1,0 +1,81 @@
+strict namespace
+{
+	function void RegularFunction (void)
+	{
+	}
+	
+	FunCtioN void RegularFunctionOtherSyntax( void ) {
+	}
+	
+	void FunctionNoPrefix (void)
+	{
+	}
+	
+	function int RegularFunctionInt (void)
+	{
+	}
+	
+	function str RegularFunctionStr (void)
+	{
+	}
+	
+	function fixed RegularFunctionFixed (void)
+	{
+	}
+	
+	function raw RegularFunctionRaw (void)
+	{
+	}
+	
+	int FunctionNoPrefixInt (void)
+	{
+	}
+	
+	str FunctionSNoPrefixtr (void)
+	{
+	}
+	
+	fixed FunctionNoPrefixFixed (void)
+	{
+	}
+	
+	raw FunctionNoPrefixRaw (void)
+	{
+	}
+	
+	function void FunctionNoParams ()
+	{
+	}
+	
+	void FunctionNoParamsNoPrefix ()
+	{
+	}
+	
+	int FunctionNoParamsNoPrefixInt ()
+	{
+	}
+	
+	str FunctionNoParamsNoPrefixStr ()
+	{
+	}
+	
+	fixed FunctionNoParamsNoPrefixFixed ()
+	{
+	}
+	
+	raw FunctionNoParamsNoPrefixRaw ()
+	{
+	}
+	
+	function void RegularFunctionParams (int parameter1, raw parameter2, str parameter3, str parameter4)
+	{
+	}
+	
+	function void RegularFunctionParams2 (/* int unusedParameter, */int parameter1, /* Inline comment */raw parameter2, str parameter3 /*,*/, str parameter4)
+	{
+	}
+	
+	raw FunctionNoPrefixParams (int parameter1, raw parameter2, str parameter3, str parameter4)
+	{
+	}
+}
