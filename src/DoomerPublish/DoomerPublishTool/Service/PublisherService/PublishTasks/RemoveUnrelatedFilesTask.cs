@@ -13,9 +13,9 @@ internal sealed class RemoveUnrelatedFilesTask : IPublishTask
 
 	private readonly List<Regex> _filesToIgnore = new()
 	{
-		new(@"^.gitignore$", RegexOptions.IgnoreCase),
-		new(@"^[a-z]+.dbs?", RegexOptions.IgnoreCase),
-		new(@"^[a-z]+.wad.backup[1-9]?", RegexOptions.IgnoreCase),
+		new(@"^\.gitignore$", RegexOptions.IgnoreCase),
+		new(@"^[a-z]+\.dbs?", RegexOptions.IgnoreCase),
+		new(@"^[a-z]+\.wad\.backup[1-9]?", RegexOptions.IgnoreCase),
 	};
 
 	public RemoveUnrelatedFilesTask(
