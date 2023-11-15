@@ -133,12 +133,16 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 
 	private static void InsertLibdefines(AcsFile file, StringBuilder stringBuilder)
 	{
-		// File has libdefines
-		if (file.LibDefines != null)
+		// Do not insert if the code resides in a named namespace.
+		if (file.Namespace == null)
 		{
-			foreach(var libDefine in file.LibDefines)
+			// File has libdefines
+			if (file.LibDefines != null)
 			{
-				_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"#libdefine {libDefine.Key} {libDefine.Value}");
+				foreach (var libDefine in file.LibDefines)
+				{
+					_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"#libdefine {libDefine.Key} {libDefine.Value}");
+				}
 			}
 		}
 
@@ -156,12 +160,16 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 
 	private static void InsertEnumLibdefines(AcsFile file, StringBuilder stringBuilder)
 	{
-		// File has libdefines
-		if (file.EnumLibdefines != null)
+		// Do not insert if the code resides in a named namespace.
+		if (file.Namespace == null)
 		{
-			foreach (var libDefine in file.EnumLibdefines)
+			// File has libdefines
+			if (file.EnumLibdefines != null)
 			{
-				_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"#libdefine {libDefine.Key.ToUpperInvariant()} {libDefine.Value}");
+				foreach (var libDefine in file.EnumLibdefines)
+				{
+					_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"#libdefine {libDefine.Key.ToUpperInvariant()} {libDefine.Value}");
+				}
 			}
 		}
 
@@ -184,41 +192,45 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 
 	private static void InsertPublicMethods(AcsFile file, StringBuilder stringBuilder)
 	{
-		// File has libdefines
-		if (file.Methods != null)
+		// Do not insert if the code resides in a named namespace.
+		if (file.Namespace == null)
 		{
-			foreach (var method in file.Methods)
+			// File has public methods.
+			if (file.Methods != null)
 			{
-				// Ignore non public
-				if (!method.IsPublic)
+				foreach (var method in file.Methods)
 				{
-					continue;
-				}
-
-				// Specific return types (fixed, raw, special) must be converted to an integer since these are not supported by ACC.
-				var methodReturnType = ShouldChangeParameterToInt(method.ReturnType) ? "int" : method.ReturnType.ToString();
-				var parametersJoined = method.Parameters == null ? "void" :
-					string.Join(", ", method.Parameters.Select(x =>
+					// Ignore non public
+					if (!method.IsPublic)
 					{
-						if (ShouldChangeParameterToInt(x.Type))
-						{
-							return $"int {x.Name}";
-						}
+						continue;
+					}
 
-						return $"{x.Type} {x.Name}";
-					}));
-				var modifiersJoined = method.Modifiers == null ? "" :
-					string.Join(" ", method.Modifiers) + " ";
-				var methodDefinition = method.Type == AcsMethodType.function ?
-					$"function {methodReturnType} {method.Name}({parametersJoined}) {{}}" :
-					$"script \"{method.Name}\"({parametersJoined}) {modifiersJoined}{{}}";
-				
-				if (method.Summary != null)
-				{
-					_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"{Environment.NewLine}// {method.Summary}");
+					// Specific return types (fixed, raw, special) must be converted to an integer since these are not supported by ACC.
+					var methodReturnType = ShouldChangeParameterToInt(method.ReturnType) ? "int" : method.ReturnType.ToString();
+					var parametersJoined = method.Parameters == null ? "void" :
+						string.Join(", ", method.Parameters.Select(x =>
+						{
+							if (ShouldChangeParameterToInt(x.Type))
+							{
+								return $"int {x.Name}";
+							}
+
+							return $"{x.Type} {x.Name}";
+						}));
+					var modifiersJoined = method.Modifiers == null ? "" :
+						string.Join(" ", method.Modifiers) + " ";
+					var methodDefinition = method.Type == AcsMethodType.function ?
+						$"function {methodReturnType} {method.Name}({parametersJoined}) {{}}" :
+						$"script \"{method.Name}\"({parametersJoined}) {modifiersJoined}{{}}";
+
+					if (method.Summary != null)
+					{
+						_ = stringBuilder.AppendLine(CultureInfo.InvariantCulture, $"{Environment.NewLine}// {method.Summary}");
+					}
+
+					_ = stringBuilder.AppendLine(methodDefinition);
 				}
-				
-				_ = stringBuilder.AppendLine(methodDefinition);
 			}
 		}
 
