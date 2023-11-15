@@ -28,6 +28,7 @@ internal sealed class DefaultAcsParseService : IAcsParseService
 	/// </summary>
 	private readonly List<Type> _parseTasks = new()
 	{
+		typeof(DefaultNamespaceParser),
 		typeof(DefaultMethodParser),
 		typeof(DefaultLibdefineParser),
 		typeof(DefaultEnumParser),

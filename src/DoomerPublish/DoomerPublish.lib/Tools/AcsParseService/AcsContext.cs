@@ -15,7 +15,7 @@ public enum AcsMethodType
 /// </summary>
 public enum AcsMethodParameterType
 {
-	@void, @int, @bool, str, @fixed, special
+	@void, @int, @bool, str, @fixed, raw, special
 }
 
 /// <summary>
@@ -62,6 +62,8 @@ public sealed class AcsFile : IFileContext
 	public required string Name { get; init; }
 	public required string AbsoluteFolderPath { get; init; }
 	public required string Content { get; init; }
+	public string? Namespace { get; set; }
+	public bool IsStrictNamespace { get; set; }
 	public List<AcsLibdefine>? LibDefines { get; set; }
 	public List<AcsLibdefine>? EnumLibdefines { get; set; }
 	public List<AcsFile>? IncludedFiles { get; set; }
