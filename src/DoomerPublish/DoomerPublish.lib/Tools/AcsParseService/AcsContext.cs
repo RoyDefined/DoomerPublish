@@ -15,7 +15,7 @@ public enum AcsMethodType
 /// </summary>
 public enum AcsMethodParameterType
 {
-	@void, @int, @bool, str, @fixed, special
+	@void, @int, @bool, str, @fixed, raw, special
 }
 
 /// <summary>

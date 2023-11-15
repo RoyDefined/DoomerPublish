@@ -111,6 +111,7 @@ internal sealed class DefaultMethodParser : IAcsParser
 			"STR" => AcsMethodParameterType.str,
 			"BOOL" => AcsMethodParameterType.@bool,
 			"FIXED" => AcsMethodParameterType.@fixed,
+			"RAW" => AcsMethodParameterType.raw,
 			_ => AcsMethodParameterType.special,
 		};
 	}

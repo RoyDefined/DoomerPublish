@@ -1,4 +1,5 @@
 ﻿using DoomerPublish.Tools.Acs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text;
@@ -176,6 +177,11 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 		}
 	}
 
+	private static bool ShouldChangeParameterToInt(AcsMethodParameterType parameterType)
+	{
+		return new[] { AcsMethodParameterType.@fixed, AcsMethodParameterType.raw, AcsMethodParameterType.special }.Contains(parameterType);
+	}
+
 	private static void InsertPublicMethods(AcsFile file, StringBuilder stringBuilder)
 	{
 		// File has libdefines
@@ -189,12 +195,12 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 					continue;
 				}
 
-				// Special return types (probably enum values) are converted to int.
-				var methodReturnType = method.ReturnType == AcsMethodParameterType.special ? "int" : method.ReturnType.ToString();
+				// Specific return types (fixed, raw, special) must be converted to an integer since these are not supported by ACC.
+				var methodReturnType = ShouldChangeParameterToInt(method.ReturnType) ? "int" : method.ReturnType.ToString();
 				var parametersJoined = method.Parameters == null ? "void" :
 					string.Join(", ", method.Parameters.Select(x =>
 					{
-						if (x.Type == AcsMethodParameterType.special)
+						if (ShouldChangeParameterToInt(x.Type))
 						{
 							return $"int {x.Name}";
 						}
