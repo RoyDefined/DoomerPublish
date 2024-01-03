@@ -17,6 +17,11 @@ internal sealed class DefaultEnumParser : IAcsParser
 	/// Regex to find enum definitions, which will return the inner enum content.
 	/// </summary>
 	private readonly Regex _enumContentRegex = new(@"(?<isPrivate>(private ))?enum \w*\s*(:\s*(?<enumType>(fixed|int|str)))?\s*{(?<enumContent>([\sa-z0-9_\-\/\""\<\>,.'`\(\)\=]*))};", RegexOptions.IgnoreCase);
+	
+	/// <summary>
+	/// The possible line separators that can be used.
+	/// </summary>
+	private readonly string[] lineSeparators = { "\r\n", "\r", "\n" };
 
 	public DefaultEnumParser(
 		ILogger<DefaultEnumParser> logger)
@@ -41,7 +46,7 @@ internal sealed class DefaultEnumParser : IAcsParser
 
 			// The enum is of type "integer" if nothing is specified.
 			var enumType = match.Groups.GetValueOrDefault("enumType")?.Value;
-			var isIntegerType = string.IsNullOrEmpty(enumType) || enumType.ToUpperInvariant() == "INT";
+			var isIntegerType = string.IsNullOrEmpty(enumType) || enumType.Equals("int", StringComparison.OrdinalIgnoreCase);
 
 			var enumContent = match.Groups.GetValueOrDefault("enumContent")?.Value ??
 				throw new InvalidOperationException($"Expected enum content for {match.Name}");
@@ -61,7 +66,7 @@ internal sealed class DefaultEnumParser : IAcsParser
 
 	private IEnumerable<string> FilterEnumContent(string content)
 	{
-		var lines = content.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+		var lines = content.Split(this.lineSeparators, StringSplitOptions.None);
 		var linesNoComment = lines.Where(y =>
 		{
 			var trimmedString = y.Trim();
@@ -69,7 +74,7 @@ internal sealed class DefaultEnumParser : IAcsParser
 		});
 		var linesNoComma = linesNoComment.Select(y =>
 		{
-			if (y.EndsWith(",", StringComparison.OrdinalIgnoreCase))
+			if (y.EndsWith(','))
 			{
 				return y[..^1].Trim();
 			}

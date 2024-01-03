@@ -42,8 +42,7 @@ internal sealed class AddAcsSourceToContextTask : IPublishTask
 			.ToArray();
 
 		// Project has no root ACS files.
-		if (!rootAcsFiles.Any())
-		{
+		if (rootAcsFiles.Length == 0) {
 			return;
 		}
 

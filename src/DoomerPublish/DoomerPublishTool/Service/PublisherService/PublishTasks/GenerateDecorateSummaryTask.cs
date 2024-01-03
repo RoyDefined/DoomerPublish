@@ -113,7 +113,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 
 	private static void GetDoomedNums(DecorateFile file, List<int> doomedNums)
 	{
-		if (file.Actors != null && file.Actors.Any())
+		if (file.Actors != null && file.Actors.Count != 0)
 		{
 			doomedNums.AddRange(
 				file.Actors
@@ -136,7 +136,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 
 	private static void InsertDecorateDoomedNums(List<int> doomedNums, StringBuilder stringBuilder)
 	{
-		if (!doomedNums.Any()) {
+		if (doomedNums.Count == 0) {
 			return;
 		}
 
@@ -159,7 +159,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 	private static void InsertDecorateSummary(DecorateFile file, StringBuilder stringBuilder)
 	{
 		// The file has actors.
-		if (file.Actors != null && file.Actors.Any())
+		if (file.Actors != null && file.Actors.Count != 0)
 		{
 			foreach (var actor in file.Actors)
 			{

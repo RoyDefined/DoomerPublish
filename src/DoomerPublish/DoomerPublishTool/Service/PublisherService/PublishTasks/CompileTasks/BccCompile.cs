@@ -62,7 +62,7 @@ internal sealed class BccCompile : Compiler
 
 	public static async Task BccCompileAsync(PublisherConfiguration publisherConfiguration, ProjectContext projectContext, string executable, string commonFile, string logOutputDirectory, ILogger logger, CancellationToken stoppingToken)
 	{
-		if (projectContext.MainAcsLibraryFiles == null || !projectContext.MainAcsLibraryFiles.Any())
+		if (projectContext.MainAcsLibraryFiles == null || projectContext.MainAcsLibraryFiles.Count == 0)
 		{
 			logger.LogInformation("Project has no ACS library files.");
 			return;
