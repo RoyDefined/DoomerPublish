@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System.Collections.Immutable;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DoomerPublish;
 
@@ -15,9 +12,7 @@ public static class IServiceCollectionExtensions
 	public static IServiceCollection AddPublisher(
         this IServiceCollection serviceCollection)
     {
-        if (serviceCollection == null) {
-            throw new ArgumentNullException(nameof(serviceCollection));
-        }
+		ArgumentNullException.ThrowIfNull(serviceCollection);
 
 		_ = serviceCollection.AddSingleton<IPublisherService, DefaultPublisherService>();
 		_ = serviceCollection.AddDoomerPublishTools();

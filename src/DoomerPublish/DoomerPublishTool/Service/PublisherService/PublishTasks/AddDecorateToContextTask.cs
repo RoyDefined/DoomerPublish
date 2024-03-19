@@ -47,9 +47,9 @@ internal sealed class AddDecorateToContextTask : IPublishTask
 			.ToArray();
 
 		// No decorate files.
-		if (!rootDecorateFiles.Any())
+		if (rootDecorateFiles.Length == 0)
 		{
-			this._logger.LogInformation("Project has no root decorate files.", project.ProjectName);
+			this._logger.LogInformation("Project {ProjectName} has no root decorate files.", project.ProjectName);
 			return;
 		}
 

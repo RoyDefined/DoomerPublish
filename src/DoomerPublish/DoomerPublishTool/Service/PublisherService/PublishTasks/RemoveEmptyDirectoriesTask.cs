@@ -33,7 +33,7 @@ internal sealed class RemoveEmptyDirectoriesTask : IPublishTask
 			throw new InvalidOperationException("Expected a project context.");
 
 		DirectoryUtils.RemoveEmptyDirectories(projectContext.ProjectPath);
-		this._logger.LogInformation("Removed empty directories.", projectContext.ProjectName);
+		this._logger.LogInformation("Removed empty directories.");
 
 		return Task.CompletedTask;
 	}

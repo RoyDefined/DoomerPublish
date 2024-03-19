@@ -184,7 +184,7 @@ internal sealed class DefaultMethodParser : IAcsParser
 	private static List<AcsMethodParameter>? ParseMethodParameters(string parametersJoined)
 	{
 		// Ignore "void"
-		if (parametersJoined.ToUpperInvariant() == "VOID")
+		if (parametersJoined.Equals("void", StringComparison.OrdinalIgnoreCase))
 		{
 			return null;
 		}

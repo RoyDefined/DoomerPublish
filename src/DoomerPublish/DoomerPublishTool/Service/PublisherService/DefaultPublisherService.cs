@@ -73,7 +73,6 @@ internal sealed class DefaultPublisherService : IPublisherService
 			}
 			catch (Exception ex)
 			{
-				this._logger.LogError(ex, "An error occured during task invokation.");
 				return new()
 				{
 					Context = context,

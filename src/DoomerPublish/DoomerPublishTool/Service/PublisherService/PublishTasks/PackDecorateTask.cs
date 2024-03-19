@@ -44,6 +44,11 @@ internal sealed class PackDecorateTask : IPublishTask
 	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
+	/// <summary>
+	/// The possible line separators that can be used.
+	/// </summary>
+	private readonly string[] lineSeparators = { "\r\n", "\r", "\n" };
+
 	public PackDecorateTask(
 		ILogger<PackDecorateTask> logger)
 	{
@@ -108,7 +113,7 @@ internal sealed class PackDecorateTask : IPublishTask
 
 	private void RecursiveProcessDecorateFile(DecorateFile file, StringBuilder stringBuilder)
 	{
-		var lines = file.Content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+		var lines = file.Content.Split(this.lineSeparators, StringSplitOptions.None);
 		var filteredLines = this.FilterEmptyCommentedOrIncludingLines(lines)
 			.Select(x => x.Trim());
 

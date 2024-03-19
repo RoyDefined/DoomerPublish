@@ -75,7 +75,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		var contextFiles = contextFilesEnumerator.ToList();
 
 		// This project has no files.
-		if (!contextFiles.Any())
+		if (contextFiles.Count == 0)
 		{
 			this._logger.LogInformation("Project has no files that might contain TODO items.");
 			return;
@@ -115,7 +115,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 	private static void InsertTodos(IFileContext file, StringBuilder stringBuilder)
 	{
 		// The file has todo items.
-		if (file.Todos != null && file.Todos.Any())
+		if (file.Todos != null && file.Todos.Count != 0)
 		{
 			var filePath = Path.Join(file.AbsoluteFolderPath, file.Name);
 			foreach (var todo in file.Todos)
