@@ -8,19 +8,10 @@ namespace DoomerPublish.Tools.Decorate;
 /// </summary>
 internal sealed class DefaultDecorateService : IDecorateService
 {
-	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
 	/// <summary>
 	/// Regex to find a decorate file. This accepts "decorate", but also "decorate.*" with any prefix since this is a valid file.
 	/// </summary>
 	private readonly Regex _decorateRegex = new(@"decorate(\.[\w\d]+)?", RegexOptions.IgnoreCase);
-
-	public DefaultDecorateService(
-		ILogger<DefaultDecorateService> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public IEnumerable<string> GetRootDecorateFiles(string projectFolderPath)

@@ -7,21 +7,17 @@ namespace DoomerPublish.Tools.Decorate;
 /// <summary>
 /// Represents the default parser to parse an actor definition.
 /// </summary>
-internal sealed class DefaultActorParser : IDecorateParser
+internal sealed class DefaultActorParser(
+	ILogger<DefaultActorParser> logger)
+	: IDecorateParser
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// Regex to find an actor in the decorate file. Also returns a group for the actor name, what it inherited from, and the doomednum.
 	/// </summary>
 	private readonly Regex _actorRegex = new(@"^actor (?<actorName>[\w\d]+)(\s+: (?<inheritedFrom>[\w\d]+))?( (?<doomedNum>\d*))?", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-	public DefaultActorParser(
-		ILogger<DefaultActorParser> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public Task ParseAsync(DecorateFile decorateFile, CancellationToken _)
@@ -54,7 +50,7 @@ internal sealed class DefaultActorParser : IDecorateParser
 		{
 			this._logger.LogDebug("Found {Count} actor(s).", count);
 		}
-		
+
 		return Task.CompletedTask;
 	}
 }

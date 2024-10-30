@@ -8,39 +8,36 @@ namespace DoomerPublish.Tools.Acs;
 /// <summary>
 /// Represents the default enum parser to parse an enum.
 /// </summary>
-internal sealed class DefaultEnumParser : IAcsParser
+internal sealed class DefaultEnumParser(
+	ILogger<DefaultEnumParser> logger)
+	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// Regex to find enum definitions, which will return the inner enum content.
 	/// </summary>
 	private readonly Regex _enumContentRegex = new(@"(?<isPrivate>(private ))?enum \w*\s*(:\s*(?<enumType>(fixed|int|str)))?\s*{(?<enumContent>([\sa-z0-9_\-\/\""\<\>,.'`\(\)\=]*))};", RegexOptions.IgnoreCase);
-	
+
 	/// <summary>
 	/// The possible line separators that can be used.
 	/// </summary>
-	private readonly string[] lineSeparators = { "\r\n", "\r", "\n" };
-
-	public DefaultEnumParser(
-		ILogger<DefaultEnumParser> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly string[] lineSeparators = ["\r\n", "\r", "\n"];
 
 	/// <inheritdoc />
 	public Task ParseAsync(AcsFile acsFile, CancellationToken _)
 	{
 		var enumMatchCollection = this._enumContentRegex.Matches(acsFile.Content);
-		acsFile.EnumLibdefines = new();
+		acsFile.EnumLibdefines = [];
 
-		foreach(var match in enumMatchCollection.ToList())
+		foreach (var match in enumMatchCollection.ToList())
 		{
 			var isPrivate = match.Groups.GetValueOrDefault("isPrivate")?.Success ?? false;
 
 			// Skip if private
-			if (isPrivate) {
+			if (isPrivate)
+			{
 				continue;
 			}
 

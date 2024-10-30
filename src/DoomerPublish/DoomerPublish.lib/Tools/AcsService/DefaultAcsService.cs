@@ -7,10 +7,12 @@ namespace DoomerPublish.Tools.Acs;
 /// <summary>
 /// Repesents the default implementation for <see cref="IAcsService"/>.
 /// </summary>
-internal sealed class DefaultAcsService : IAcsService
+internal sealed class DefaultAcsService(
+	ILogger<DefaultAcsService> logger)
+	: IAcsService
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// A constant that represents the folder name of the ACS source.
@@ -22,12 +24,6 @@ internal sealed class DefaultAcsService : IAcsService
 	/// </summary>
 	private readonly Regex _acsFileRegex = new(@".*\.(acs|bcs)$", RegexOptions.IgnoreCase);
 
-	public DefaultAcsService(
-		ILogger<DefaultAcsService> logger)
-	{
-		this._logger = logger;
-	}
-
 	/// <inheritdoc />
 	public IEnumerable<string> GetRootAcsFilesFromSource(string sourceFolderPath)
 	{
@@ -37,7 +33,7 @@ internal sealed class DefaultAcsService : IAcsService
 		if (!Directory.Exists(acsSourceFolderPath))
 		{
 			this._logger.LogInformation("Project contains no {AcsSourceFolderName} at '{AcsSourceFolderPath}'.", AcsSourceFolderName, acsSourceFolderPath);
-			return Enumerable.Empty<string>();
+			return [];
 		}
 
 		return Directory.EnumerateFiles(acsSourceFolderPath, "*.*", SearchOption.TopDirectoryOnly)

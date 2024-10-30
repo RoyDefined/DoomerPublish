@@ -7,10 +7,12 @@ namespace DoomerPublish.Tools.Acs;
 /// <summary>
 /// Represents the default parser to parse a function or method.
 /// </summary>
-internal sealed class DefaultMethodParser : IAcsParser
+internal sealed class DefaultMethodParser(
+	ILogger<DefaultMethodParser> logger)
+	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// Regex to find functions, filtering public and non public, summary, name, actual definition and return type.
@@ -21,12 +23,6 @@ internal sealed class DefaultMethodParser : IAcsParser
 	/// Regex to find scripts, filtering public and non public, summary, name, and actual definition.
 	/// </summary>
 	private readonly Regex _scriptRegex = new(@"(\/\/\s*@(?<public>(public))\s*)?(\/\/\s*@summary\s*(?<summary>(.*)))?\s*(?<definition>(script\s*""(?<scriptName>(.*))"")\s*(\((?<parameters>(.*))\))?\s*(?<modifiers>(.*))\s*{)", RegexOptions.IgnoreCase);
-
-	public DefaultMethodParser(
-		ILogger<DefaultMethodParser> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public Task ParseAsync(AcsFile acsFile, CancellationToken _)
@@ -40,9 +36,11 @@ internal sealed class DefaultMethodParser : IAcsParser
 		acsFile.Methods = functions.Concat(scripts).ToList();
 		var count = acsFile.Methods.Count;
 
-		if (count > 0) {
+		if (count > 0)
+		{
 			this._logger.LogDebug("Found {Count} method(s).", count);
 		}
+
 		return Task.CompletedTask;
 	}
 
@@ -82,7 +80,7 @@ internal sealed class DefaultMethodParser : IAcsParser
 
 			var modifiersGroup = match.Groups.GetValueOrDefault("modifiers");
 			var modifiers = modifiersGroup == null || !modifiersGroup.Success ?
-				new List<string>() :
+				[] :
 				modifiersGroup.Value
 					.Split(" ")
 					.Select(x => x.Trim())

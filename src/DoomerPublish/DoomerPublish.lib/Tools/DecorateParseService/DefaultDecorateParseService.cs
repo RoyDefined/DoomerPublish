@@ -6,31 +6,26 @@ using DoomerPublish.Tools.Acs;
 
 namespace DoomerPublish.Tools.Decorate;
 
-internal sealed class DefaultDecorateParseService : IDecorateParseService
+internal sealed class DefaultDecorateParseService(
+	ILogger<DefaultDecorateParseService> logger,
+	IServiceProvider serviceProvider)
+	: IDecorateParseService
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <inheritdoc cref="IServiceProvider" />
-	private readonly IServiceProvider _serviceProvider;
+	private readonly IServiceProvider _serviceProvider = serviceProvider;
 
 	/// <summary>
 	/// Represents the list of parse tasks that must be invoked on the file.
 	/// </summary>
-	private readonly List<Type> _parseTasks = new()
-	{
+	private readonly List<Type> _parseTasks =
+	[
 		typeof(DefaultActorParser),
 		typeof(DefaultTodoParser),
 		typeof(DefaultIncludeParser),
-	};
-
-	public DefaultDecorateParseService(
-		ILogger<DefaultDecorateParseService> logger,
-		IServiceProvider serviceProvider)
-	{
-		this._logger = logger;
-		this._serviceProvider = serviceProvider;
-	}
+	];
 
 	/// <inheritdoc />
 	public async Task ParseFileAsync(DecorateFile decorateFile, CancellationToken cancellationToken)
