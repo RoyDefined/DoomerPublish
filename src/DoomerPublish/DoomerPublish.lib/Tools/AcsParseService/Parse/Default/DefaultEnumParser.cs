@@ -105,6 +105,8 @@ internal sealed class DefaultEnumParser(
 					throw new InvalidOperationException($"Failed for \"{line}\". Non-integer enum should have a key and value.");
 				}
 
+				value = TrimCasting(value);
+
 				yield return new()
 				{
 					Key = key,
@@ -143,5 +145,17 @@ internal sealed class DefaultEnumParser(
 				};
 			}
 		}
+	}
+
+	/// <summary>
+	/// Performs trimming of explicit casting on enum values
+	/// </summary>
+	private static string TrimCasting(string value)
+	{
+		var comparer = StringComparison.OrdinalIgnoreCase;
+		return value
+			.Replace("(string)", string.Empty, comparer)
+			.Replace("(int)", string.Empty, comparer)
+			.Replace("(fixed)", string.Empty, comparer);
 	}
 }
