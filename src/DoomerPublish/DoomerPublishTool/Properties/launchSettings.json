@@ -23,32 +23,32 @@
 
         "Publish maps through temp project with full stripping": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectMaps\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectMaps\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         },
 
         "Publish resources dev through temp project with full stripping": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectResources\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectResources\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --tempProject --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         },
 
         "Publish resources prod through temp project with full stripping": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectResources\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --stripFiles dev --tempProject --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectResources\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --stripFiles dev --tempProject --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         },
 
         "Publish core Prod through temp project with full stripping and compilation with ACC": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith gdccacc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith gdccacc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         },
 
         "Publish core Prod through temp project with full stripping and compilation with GDCC-ACC": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectGdccAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith acc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectGdccAcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith acc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         },
 
         "Publish core Prod through temp project with full stripping and compilation with BCC": {
             "commandName": "Project",
-            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectBcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith bcc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmpty"
+            "commandLineArgs": "\"..\\..\\..\\..\\..\\..\\template\\src\\TestProjectBcc\" --logOutput \"..\\..\\..\\..\\..\\..\\template\\logs\" --todoAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --decorateSummaryAt \"..\\..\\..\\..\\..\\..\\template\\logs\" --packToOutput \"..\\..\\..\\..\\..\\..\\template\\build\" --compilerRoot \"..\\..\\..\\..\\..\\..\\template\\scripts\" --compileWith bcc --engine \"zandronum\" --noWarnForwardReferences --publicAcs --tempProject --removeAcs --removeUnrelated --packDecorate --removeEmptyDirectories --removeEmptyLogFiles"
         }
     }
 }

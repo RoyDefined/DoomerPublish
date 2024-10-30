@@ -39,6 +39,7 @@ internal sealed class DefaultPublisherService(
 		typeof(RemoveEmptyDirectoriesTask),
 		typeof(PackToOutputTask),
 		typeof(RemoveTemporaryDirectoryTask),
+		typeof(RemoveEmptyLogfilesTask),
 	];
 
 	/// <inheritdoc/>

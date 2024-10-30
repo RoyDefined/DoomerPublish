@@ -86,8 +86,11 @@ internal class PublisherConfiguration
 	[Option(longName: "packDecorate", Required = false, HelpText = "Specify to pack decorate into one file.")]
 	public bool PackDecorate { get; init; }
 
-	[Option(longName: "removeEmpty", Required = false, HelpText = "Specify to remove empty directories.")]
+	[Option(longName: "removeEmptyDirectories", Required = false, HelpText = "Specify to remove empty directories.")]
 	public bool RemoveEmptyDirectories { get; init; }
+
+	[Option(longName: "removeEmptyLogFiles", Required = false, HelpText = "Specify to remove empty log files.")]
+	public bool RemoveEmptyLogFiles { get; init; }
 
 	// Property getters
 
