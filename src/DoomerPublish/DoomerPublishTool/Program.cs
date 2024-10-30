@@ -159,15 +159,19 @@ if (publisherResult?.Success == false)
 		var exception = publisherResult.Exception;
 		if (exception != null)
 		{
-			_ = stringbuilder.AppendLine(exception.Message);
-			while (exception.InnerException != null) {
-				exception = exception.InnerException;
-			}
+			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception: {exception.Message}");
+			_ = stringbuilder.AppendLine(exception.StackTrace);
 
-			_ = stringbuilder
-				.Append("--> ")
-				.AppendLine(exception.Message)
-				.AppendLine(exception.StackTrace);
+			var innerException = exception.InnerException;
+			var stringPrefix = "\t";
+			while (innerException != null)
+			{
+				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}Inner Exception: {innerException.Message}");
+				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}{innerException.StackTrace}");
+
+				innerException = innerException.InnerException;
+				stringPrefix += "\t";
+			}
 		}
 	}
 	else

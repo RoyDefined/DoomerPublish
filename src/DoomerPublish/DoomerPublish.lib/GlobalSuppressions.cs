@@ -3,11 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "To be implemented at a later stage.")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Disagreed.")]
-[assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "Disagreed.")]
-[assembly: SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "False positive.")]
-[assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "False positive.")]
-[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "Disagreed.")]
-[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Disagreed.")]
-[assembly: SuppressMessage("Usage", "CA2201:Do not raise reserved exception types", Justification = "Disagreed.")]
+[assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists")]
+[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only")]
+[assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:DoomerPublish.Tools.Acs.DefaultEnumParser.EnumerateFilteredEnumLines(System.Collections.Generic.IEnumerable{System.String},System.Boolean)~System.Collections.Generic.IEnumerable{DoomerPublish.Tools.Acs.AcsLibdefine}")]

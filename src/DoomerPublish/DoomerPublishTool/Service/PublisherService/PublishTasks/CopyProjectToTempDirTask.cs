@@ -8,16 +8,12 @@ namespace DoomerPublish.PublishTasks;
 /// This task copies over the project into a temporary directory, and uses that directory for concurrent tasks.<br/>
 /// This ensures content is not deleted in the original project.
 /// </summary>
-internal sealed class CopyProjectToTempDirTask : IPublishTask
+internal sealed class CopyProjectToTempDirTask(
+	ILogger<CopyProjectToTempDirTask> logger)
+	: IPublishTask
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
-	public CopyProjectToTempDirTask(
-		ILogger<CopyProjectToTempDirTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -43,7 +39,7 @@ internal sealed class CopyProjectToTempDirTask : IPublishTask
 			this._logger.LogDebug("Deleting existing temporary folder {FolderName}.", output);
 			Directory.Delete(output, true);
 		}
-		
+
 		// Create base folder.
 		_ = Directory.CreateDirectory(output);
 

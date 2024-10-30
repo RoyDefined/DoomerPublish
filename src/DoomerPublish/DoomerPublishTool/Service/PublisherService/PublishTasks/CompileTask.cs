@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Threading;
 
 namespace DoomerPublish.PublishTasks;
@@ -6,27 +7,25 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task removes the ACS source from all the projects.
 /// </summary>
-internal sealed class CompileTask : IPublishTask
+internal sealed class CompileTask(
+	ILogger<CompileTask> logger)
+	: IPublishTask
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
-	public CompileTask(
-		ILogger<CompileTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
-		if (stoppingToken.IsCancellationRequested) {
+		if (stoppingToken.IsCancellationRequested)
+		{
 			return;
 		}
 
 		var compilerType = context.Configuration.CompileWithParsed;
 
 		// User does not want to compile.
-		if (compilerType == CompileType.Unknown) {
+		if (compilerType == CompileType.Unknown)
+		{
 			return;
 		}
 
@@ -38,23 +37,14 @@ internal sealed class CompileTask : IPublishTask
 		}
 
 		// Compile based on the compile type.
-		Task? task = null;
-		switch(compilerType)
+		var task = compilerType switch
 		{
-			case CompileType.Acc:
-				task = AccCompile.CompileAsync(this._logger, context, stoppingToken);
-				break;
-
-			case CompileType.Bcc:
-				task = BccCompile.CompileAsync(this._logger, context, stoppingToken);
-				break;
-
-			case CompileType.GdccAcc:
-			case CompileType.GdccC:
-				task = GdccCompile.CompileAsync(this._logger, context, compilerType, stoppingToken);
-				break;
-		}
-
+			CompileType.Acc => AccCompile.CompileAsync(this._logger, context, stoppingToken),
+			CompileType.Bcc => BccCompile.CompileAsync(this._logger, context, stoppingToken),
+			CompileType.GdccAcc or CompileType.GdccC => GdccCompile.CompileAsync(this._logger, context, compilerType, stoppingToken),
+			CompileType.Unknown => throw new NotImplementedException(),
+			_ => throw new UnreachableException(),
+		};
 		try
 		{
 			if (task == null)

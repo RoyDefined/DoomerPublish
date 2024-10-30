@@ -10,19 +10,10 @@ namespace DoomerPublish.Tools.Common;
 /// </summary>
 internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 {
-	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
 	/// <summary>
 	/// Regex to find a todo item.
 	/// </summary>
 	private readonly Regex _todoItemRegex = new(@"\s*\/\/\s*@todo:?\s*(?<todo>(.*))", RegexOptions.IgnoreCase);
-
-	public DefaultTodoParser(
-		ILogger<DefaultTodoParser> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public Task ParseAsync(AcsFile acsFile, CancellationToken _)
@@ -52,8 +43,8 @@ internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
 		// Submethod to determine the actual line a todo was on, by navigating the input and checking for new lines.
 		static int LineFromPos(string input, int indexPosition)
 		{
-			int lineNumber = 1;
-			for (int i = 0; i < indexPosition; i++)
+			var lineNumber = 1;
+			for (var i = 0; i < indexPosition; i++)
 			{
 				// TODO: Improve this.
 				if (input[i] == '\n')

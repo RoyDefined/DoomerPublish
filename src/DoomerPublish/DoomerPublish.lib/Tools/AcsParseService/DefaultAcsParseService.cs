@@ -10,13 +10,16 @@ namespace DoomerPublish.Tools.Acs;
 /// <summary>
 /// Represents the default service to handle the parsing of an ACS file.
 /// </summary>
-internal sealed class DefaultAcsParseService : IAcsParseService
+internal sealed class DefaultAcsParseService(
+	ILogger<DefaultAcsParseService> logger,
+	IServiceProvider serviceProvider)
+	: IAcsParseService
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <inheritdoc cref="IServiceProvider" />
-	private readonly IServiceProvider _serviceProvider;
+	private readonly IServiceProvider _serviceProvider = serviceProvider;
 
 	/// <summary>
 	/// Represents the library parse task type. This is added seperately in case we parse a library file.
@@ -26,23 +29,15 @@ internal sealed class DefaultAcsParseService : IAcsParseService
 	/// <summary>
 	/// Represents the list of parse tasks that must be invoked on the file.
 	/// </summary>
-	private readonly List<Type> _parseTasks = new()
-	{
+	private readonly List<Type> _parseTasks =
+	[
 		typeof(DefaultNamespaceParser),
 		typeof(DefaultMethodParser),
 		typeof(DefaultLibdefineParser),
 		typeof(DefaultEnumParser),
 		typeof(DefaultTodoParser),
 		typeof(DefaultIncludeParser),
-	};
-
-	public DefaultAcsParseService(
-		ILogger<DefaultAcsParseService> logger,
-		IServiceProvider serviceProvider)
-	{
-		this._logger = logger;
-		this._serviceProvider = serviceProvider;
-	}
+	];
 
 	/// <inheritdoc />
 	public async Task ParseFileAsync(AcsFile acsFile, CancellationToken cancellationToken)
@@ -81,7 +76,7 @@ internal sealed class DefaultAcsParseService : IAcsParseService
 		}
 
 		// Recursively do the same for the included files.
-		foreach(var includedFile in acsFile.IncludedFiles)
+		foreach (var includedFile in acsFile.IncludedFiles)
 		{
 			await this.ParseFileRecursiveAsync(includedFile, false, cancellationToken)
 				.ConfigureAwait(false);

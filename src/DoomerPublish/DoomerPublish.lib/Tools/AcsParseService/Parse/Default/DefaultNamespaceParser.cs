@@ -7,21 +7,17 @@ namespace DoomerPublish.Tools.Acs;
 /// <summary>
 /// Represents the default parser to parse a file namespace.
 /// </summary>
-internal sealed class DefaultNamespaceParser : IAcsParser
+internal sealed class DefaultNamespaceParser(
+	ILogger<DefaultNamespaceParser> logger)
+	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// Regex to find functions, filtering public and non public, summary, name, actual definition and return type.
 	/// </summary>
 	private readonly Regex _namespaceRegex = new(@"(?<isStrict>(strict ))?namespace(\s*(?<name>([\w])+))?\s*{", RegexOptions.IgnoreCase);
-
-	public DefaultNamespaceParser(
-		ILogger<DefaultNamespaceParser> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public Task ParseAsync(AcsFile acsFile, CancellationToken _)
@@ -37,7 +33,8 @@ internal sealed class DefaultNamespaceParser : IAcsParser
 		var isStrict = isStrictGroup?.Success ?? false;
 
 		var namespaceNameGroup = namespaceMatch.Groups.GetValueOrDefault("name");
-		if (namespaceNameGroup == null || !namespaceNameGroup.Success) {
+		if (namespaceNameGroup == null || !namespaceNameGroup.Success)
+		{
 			namespaceNameGroup = null;
 		}
 

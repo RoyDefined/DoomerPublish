@@ -5,16 +5,11 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task removes the temporary directory that is created.
 /// </summary>
-internal sealed class RemoveTemporaryDirectoryTask : IPublishTask
+internal sealed class RemoveTemporaryDirectoryTask(
+	ILogger<RemoveTemporaryDirectoryTask> logger)
+	: IPublishTask
 {
-	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
-	public RemoveTemporaryDirectoryTask(
-		ILogger<RemoveTemporaryDirectoryTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -24,7 +19,8 @@ internal sealed class RemoveTemporaryDirectoryTask : IPublishTask
 		}
 
 		// The user did not create a temporary directory.
-		if (!context.Configuration.CreateTemporaryProject) {
+		if (!context.Configuration.CreateTemporaryProject)
+		{
 			return Task.CompletedTask;
 		}
 

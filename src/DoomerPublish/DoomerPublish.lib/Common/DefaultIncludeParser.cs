@@ -9,21 +9,17 @@ namespace DoomerPublish.Tools.Common;
 /// <summary>
 /// Represents the default include parser to parse file inclusions.
 /// </summary>
-internal sealed class DefaultIncludeParser : IAcsParser, IDecorateParser
+internal sealed class DefaultIncludeParser(
+	ILogger<DefaultIncludeParser> logger)
+		: IAcsParser, IDecorateParser
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// Regex to determine an included file.
 	/// </summary>
 	private readonly Regex _includeRegex = new(@"#include ""(?<file>[\w\d\/\\ .]+)""", RegexOptions.IgnoreCase);
-
-	public DefaultIncludeParser(
-		ILogger<DefaultIncludeParser> logger)
-	{
-		this._logger = logger;
-	}
 
 	/// <inheritdoc />
 	public async Task ParseAsync(AcsFile acsFile, CancellationToken cancellationToken)
@@ -33,8 +29,8 @@ internal sealed class DefaultIncludeParser : IAcsParser, IDecorateParser
 			// Do not include zcommon.
 			.Where(x => !x.StartsWith("zcommon", StringComparison.OrdinalIgnoreCase));
 
-		acsFile.IncludedFiles = new();
-		foreach(var includedFile in includedFiles)
+		acsFile.IncludedFiles = [];
+		foreach (var includedFile in includedFiles)
 		{
 			var filePath = Path.Join(acsFile.AbsoluteFolderPath, includedFile);
 			var includedAcsFile = await AcsFile.FromPathAsync(filePath, cancellationToken)
@@ -50,7 +46,7 @@ internal sealed class DefaultIncludeParser : IAcsParser, IDecorateParser
 	{
 		var includedFiles = this.ParseIncludeContent(decorateFile.Content);
 
-		decorateFile.IncludedFiles = new();
+		decorateFile.IncludedFiles = [];
 		foreach (var includedFile in includedFiles)
 		{
 			var filePath = Path.Join(decorateFile.AbsoluteFolderPath, includedFile);

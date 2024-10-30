@@ -8,19 +8,22 @@ namespace DoomerPublish;
 /// <summary>
 /// The default implementation of <see cref="IPublisherService"/>.
 /// </summary>
-internal sealed class DefaultPublisherService : IPublisherService
+internal sealed class DefaultPublisherService(
+	ILogger<IPublisherService> logger,
+	IServiceProvider serviceProvider)
+	: IPublisherService
 {
 	/// <inheritdoc cref="ILogger"/>
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <inheritdoc cref="IServiceProvider"/>
-	private readonly IServiceProvider _serviceProvider;
+	private readonly IServiceProvider _serviceProvider = serviceProvider;
 
 	/// <summary>
 	/// This represents all the tasks in order that must be invoked.
 	/// </summary>
-	private readonly List<Type> _tasks = new()
-	{
+	private readonly List<Type> _tasks =
+	[
 		typeof(AddProjectContextToMainContextTask),
 		typeof(CopyProjectToTempDirTask),
 		typeof(AddAcsSourceToContextTask),
@@ -36,15 +39,8 @@ internal sealed class DefaultPublisherService : IPublisherService
 		typeof(RemoveEmptyDirectoriesTask),
 		typeof(PackToOutputTask),
 		typeof(RemoveTemporaryDirectoryTask),
-	};
-
-	public DefaultPublisherService(
-		ILogger<IPublisherService> logger,
-		IServiceProvider serviceProvider)
-	{
-		this._logger = logger;
-		this._serviceProvider = serviceProvider;
-	}
+		typeof(RemoveEmptyLogfilesTask),
+	];
 
 	/// <inheritdoc/>
 	public async Task<PublisherResult> DoPublishAsync(PublisherConfiguration configuration, CancellationToken cancellationToken)
@@ -54,7 +50,7 @@ internal sealed class DefaultPublisherService : IPublisherService
 		var context = new PublishContext()
 		{
 			Configuration = configuration,
-			FinishedTasks = new(),
+			FinishedTasks = [],
 		};
 
 		foreach (var task in this._tasks)

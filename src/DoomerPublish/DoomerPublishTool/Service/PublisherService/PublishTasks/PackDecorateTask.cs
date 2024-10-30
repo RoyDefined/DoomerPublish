@@ -8,7 +8,9 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task packs all the decorate code into a single file, and removes the packed files from the project.
 /// </summary>
-internal sealed class PackDecorateTask : IPublishTask
+internal sealed class PackDecorateTask(
+	ILogger<PackDecorateTask> logger)
+	: IPublishTask
 {
 	/// <summary>
 	/// Header message to put as the header for the generated files.
@@ -42,18 +44,12 @@ internal sealed class PackDecorateTask : IPublishTask
 	private readonly Regex _includeRegex = new(@"#include ""(?<file>[\w\d\/\\\.]+)""", RegexOptions.IgnoreCase);
 
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// The possible line separators that can be used.
 	/// </summary>
-	private readonly string[] lineSeparators = { "\r\n", "\r", "\n" };
-
-	public PackDecorateTask(
-		ILogger<PackDecorateTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly string[] lineSeparators = ["\r\n", "\r", "\n"];
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -89,7 +85,8 @@ internal sealed class PackDecorateTask : IPublishTask
 		foreach (var decorateFile in decorateFiles)
 		{
 			// Do not process this decorate file if it's stripped from the output.
-			if (decorateFile.StripFromOutput) {
+			if (decorateFile.StripFromOutput)
+			{
 				continue;
 			}
 
