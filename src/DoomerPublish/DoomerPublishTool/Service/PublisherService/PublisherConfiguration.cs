@@ -4,7 +4,10 @@ namespace DoomerPublish;
 
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
 
-public enum CompileType
+/// <summary>
+/// Represents the compiler to use during publishing.
+/// </summary>
+internal enum CompileType
 {
 	Unknown,
 	Acc,
@@ -13,7 +16,10 @@ public enum CompileType
 	GdccC
 };
 
-public enum EngineType
+/// <summary>
+/// Represents the engine to target during publishing.
+/// </summary>
+internal enum EngineType
 {
 	Unknown,
 	Zdoom,
@@ -21,7 +27,10 @@ public enum EngineType
 	Eternity
 };
 
-public class PublisherConfiguration
+/// <summary>
+/// Represents all configurable configuration for a publish process.
+/// </summary>
+internal class PublisherConfiguration
 {
 	[Value(index: 0, Required = true, HelpText = "Absolute path to the project directory.")]
 	public required string InputProjectDir { get; init; }
@@ -68,18 +77,24 @@ public class PublisherConfiguration
 	[Option(longName: "removeAcs", Required = false, HelpText = "Specify to remove the acs source.")]
 	public bool RemoveAcsSource { get; init; }
 
+	[Option(longName: "stripFiles", Required = false, HelpText = "Specify to strip base files ending in the given string or strings from the project. This will also strip included files.")]
+	public IEnumerable<string>? Stripfiles { get; init; }
+
 	[Option(longName: "removeUnrelated", Required = false, HelpText = "Specify to remove unrelated files.")]
 	public bool RemoveUnrelatedFiles { get; init; }
 
 	[Option(longName: "packDecorate", Required = false, HelpText = "Specify to pack decorate into one file.")]
 	public bool PackDecorate { get; init; }
 
-	[Option(longName: "removeEmpty", Required = false, HelpText = "Specify to remove empty directories.")]
+	[Option(longName: "removeEmptyDirectories", Required = false, HelpText = "Specify to remove empty directories.")]
 	public bool RemoveEmptyDirectories { get; init; }
+
+	[Option(longName: "removeEmptyLogFiles", Required = false, HelpText = "Specify to remove empty log files.")]
+	public bool RemoveEmptyLogFiles { get; init; }
 
 	// Property getters
 
-	public CompileType CompileWithParsed => this.CompileWith?.ToUpperInvariant() switch
+	internal CompileType CompileWithParsed => this.CompileWith?.ToUpperInvariant() switch
 	{
 		"ACC" => CompileType.Acc,
 		"BCC" => CompileType.Bcc,
@@ -88,7 +103,7 @@ public class PublisherConfiguration
 		_ => CompileType.Unknown,
 	};
 
-	public EngineType EngineTypeParsed => this.ForEngine?.ToUpperInvariant() switch
+	internal EngineType EngineTypeParsed => this.ForEngine?.ToUpperInvariant() switch
 	{
 		"ZDOOM" => EngineType.Zdoom,
 		"ZANDRONUM" => EngineType.Zandronum,

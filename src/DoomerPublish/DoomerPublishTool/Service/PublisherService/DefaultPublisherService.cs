@@ -5,39 +5,42 @@ using System.Net;
 
 namespace DoomerPublish;
 
-internal sealed class DefaultPublisherService : IPublisherService
+/// <summary>
+/// The default implementation of <see cref="IPublisherService"/>.
+/// </summary>
+internal sealed class DefaultPublisherService(
+	ILogger<IPublisherService> logger,
+	IServiceProvider serviceProvider)
+	: IPublisherService
 {
 	/// <inheritdoc cref="ILogger"/>
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
-	private readonly IServiceProvider _serviceProvider;
+	/// <inheritdoc cref="IServiceProvider"/>
+	private readonly IServiceProvider _serviceProvider = serviceProvider;
 
-	private readonly List<Type> _tasks = new()
-	{
+	/// <summary>
+	/// This represents all the tasks in order that must be invoked.
+	/// </summary>
+	private readonly List<Type> _tasks =
+	[
 		typeof(AddProjectContextToMainContextTask),
 		typeof(CopyProjectToTempDirTask),
-		typeof(AddAcsSourcePathsToContextTask),
 		typeof(AddAcsSourceToContextTask),
 		typeof(AddDecorateToContextTask),
 		typeof(RemoveUnrelatedFilesTask),
 		typeof(GeneratePublicAcsSourceTask),
 		typeof(GenerateTodoListTask),
 		typeof(GenerateDecorateSummaryTask),
+		typeof(StripFilesTask),
 		typeof(CompileTask),
 		typeof(RemoveAcsSourceTask),
 		typeof(PackDecorateTask),
 		typeof(RemoveEmptyDirectoriesTask),
 		typeof(PackToOutputTask),
 		typeof(RemoveTemporaryDirectoryTask),
-	};
-
-	public DefaultPublisherService(
-		ILogger<IPublisherService> logger,
-		IServiceProvider serviceProvider)
-	{
-		this._logger = logger;
-		this._serviceProvider = serviceProvider;
-	}
+		typeof(RemoveEmptyLogfilesTask),
+	];
 
 	/// <inheritdoc/>
 	public async Task<PublisherResult> DoPublishAsync(PublisherConfiguration configuration, CancellationToken cancellationToken)
@@ -47,7 +50,7 @@ internal sealed class DefaultPublisherService : IPublisherService
 		var context = new PublishContext()
 		{
 			Configuration = configuration,
-			FinishedTasks = new(),
+			FinishedTasks = [],
 		};
 
 		foreach (var task in this._tasks)

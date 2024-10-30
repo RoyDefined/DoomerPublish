@@ -6,8 +6,12 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class AccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "acc";
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??
@@ -39,7 +43,8 @@ internal sealed class AccCompile : Compiler
 
 	public static async Task AccCompileAsync(ProjectContext projectContext, string executable, string logOutputDirectory, ILogger logger, CancellationToken stoppingToken)
 	{
-		if (projectContext.MainAcsLibraryFiles == null || !projectContext.MainAcsLibraryFiles.Any()) {
+		if (projectContext.MainAcsLibraryFiles == null || projectContext.MainAcsLibraryFiles.Count == 0)
+		{
 			logger.LogInformation("Project has no ACS library files.");
 			return;
 		}
@@ -51,8 +56,8 @@ internal sealed class AccCompile : Compiler
 			var fileName = Path.GetFileNameWithoutExtension(libraryFile.Name);
 
 			var arguments = new List<string>();
-			var input = Path.Join(projectContext.ProjectPath, CompileTask.InputFolder, libraryFile.Name);
-			var output = Path.Join(projectContext.ProjectPath, CompileTask.OutputFolder, fileName + ".o");
+			var input = Path.Join(projectContext.ProjectPath, Compiler.InputFolder, libraryFile.Name);
+			var output = Path.Join(projectContext.ProjectPath, Compiler.OutputFolder, fileName + ".o");
 
 			//var accOutput = Path.Join(logOutputDirectory, $"compileresult_debug_{projectContext.ProjectName}_{fileName}.txt");
 			var stdOutLogFile = Path.Join(logOutputDirectory, $"compileresult_{projectContext.ProjectName}_{fileName}.txt");

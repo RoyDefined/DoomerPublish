@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Tools.Acs;
+using Microsoft.Extensions.Logging;
 
 namespace DoomerPublish.PublishTasks;
 
@@ -7,6 +8,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class RemoveAcsSourceTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public RemoveAcsSourceTask(
@@ -31,21 +33,39 @@ internal sealed class RemoveAcsSourceTask : IPublishTask
 		var projectContext = context.ProjectContext ??
 			throw new InvalidOperationException("Expected a project context.");
 
-		if (projectContext.AcsSourcePath != null)
+		if (projectContext.MainAcsLibraryFiles == null)
 		{
-			this._logger.LogInformation("Deleting acs source: {AcsSourcePath}", projectContext.AcsSourcePath);
-			Directory.Delete(projectContext.AcsSourcePath, true);
+			this._logger.LogInformation("Not removing main ACS library files. Project has none.");
+			return Task.CompletedTask;
 		}
 
-		if (projectContext.AcsSourceStrayFiles != null)
+		foreach (var includedFile in projectContext.MainAcsLibraryFiles)
 		{
-			foreach (var file in projectContext.AcsSourceStrayFiles)
-			{
-				this._logger.LogInformation("Deleting stray ACS file: {AcsFile}", file);
-				File.Delete(file);
-			}
+			this.DeleteAcsFileRecursive(includedFile);
 		}
 
 		return Task.CompletedTask;
+	}
+
+	public void DeleteAcsFileRecursive(AcsFile acsFile)
+	{
+		var filePath = Path.Join(acsFile.AbsoluteFolderPath, acsFile.Name);
+		if (!File.Exists(filePath))
+		{
+			throw new FileNotFoundException($"File was not found at '{filePath}'.", acsFile.Name);
+		}
+
+		File.Delete(filePath);
+
+		if (acsFile.IncludedFiles == null)
+		{
+			return;
+		}
+
+		// Recursively delete included files.
+		foreach (var includedFile in acsFile.IncludedFiles)
+		{
+			this.DeleteAcsFileRecursive(includedFile);
+		}
 	}
 }

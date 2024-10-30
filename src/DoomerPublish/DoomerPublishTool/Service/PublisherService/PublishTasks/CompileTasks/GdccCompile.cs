@@ -7,8 +7,12 @@ namespace DoomerPublish.PublishTasks;
 
 internal sealed class GdccCompile : Compiler
 {
+	/// <summary>
+	/// Represents the target folder to find the compiler in.
+	/// </summary>
 	public const string FolderName = "gdcc";
 
+	/// <inheritdoc />
 	public static async Task CompileAsync(ILogger logger, PublishContext context, CompileType compileType, CancellationToken cancellationToken)
 	{
 		var compilerPath = context.Configuration.CompilersRootDirectory ??
@@ -26,6 +30,7 @@ internal sealed class GdccCompile : Compiler
 		{
 			CompileType.GdccAcc => "gdcc-acc.exe",
 			CompileType.GdccC => "gdcc-cc.exe",
+			CompileType.Acc or CompileType.Bcc or CompileType.Unknown => throw new UnreachableException(),
 			_ => throw new InvalidOperationException($"Invalid compile type for GDCC compilation: {compileType}"),
 		};
 
@@ -46,7 +51,7 @@ internal sealed class GdccCompile : Compiler
 
 	public static async Task GdccCompileAsync(PublisherConfiguration publisherConfiguration, ProjectContext projectContext, string executable, string logOutputDirectory, ILogger logger, CancellationToken stoppingToken)
 	{
-		if (projectContext.MainAcsLibraryFiles == null || !projectContext.MainAcsLibraryFiles.Any())
+		if (projectContext.MainAcsLibraryFiles == null || projectContext.MainAcsLibraryFiles.Count == 0)
 		{
 			logger.LogInformation("Project has no ACS library files.");
 			return;
@@ -59,8 +64,8 @@ internal sealed class GdccCompile : Compiler
 			var fileName = Path.GetFileNameWithoutExtension(libraryFile.Name);
 
 			var arguments = new List<string>();
-			var input = Path.Join(projectContext.ProjectPath, CompileTask.InputFolder, fileName + ".acs");
-			var output = Path.Join(projectContext.ProjectPath, CompileTask.OutputFolder, fileName + ".o");
+			var input = Path.Join(projectContext.ProjectPath, Compiler.InputFolder, fileName + ".acs");
+			var output = Path.Join(projectContext.ProjectPath, Compiler.OutputFolder, fileName + ".o");
 
 			var stdOutLogFile = Path.Join(logOutputDirectory, $"compileresult_{projectContext.ProjectName}_{fileName}.txt");
 			var stdErrLogFile = Path.Join(logOutputDirectory, $"compileresult_error_{projectContext.ProjectName}_{fileName}.txt");

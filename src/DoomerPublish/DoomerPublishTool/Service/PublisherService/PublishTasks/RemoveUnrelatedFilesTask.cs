@@ -6,22 +6,18 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task removes all unrelated files from the project, which has no use and only serves as bloat or a trigger for warnings.
 /// </summary>
-internal sealed class RemoveUnrelatedFilesTask : IPublishTask
+internal sealed class RemoveUnrelatedFilesTask(
+	ILogger<RemoveUnrelatedFilesTask> logger)
+	: IPublishTask
 {
-	private readonly List<Regex> _filesToIgnore = new()
-	{
-		new(@"^.gitignore$", RegexOptions.IgnoreCase),
-		new(@"^[a-z]+.dbs?", RegexOptions.IgnoreCase),
-		new(@"^[a-z]+.wad.backup[1-9]?", RegexOptions.IgnoreCase),
-	};
+	private readonly ILogger _logger = logger;
 
-	private readonly ILogger _logger;
-
-	public RemoveUnrelatedFilesTask(
-		ILogger<RemoveUnrelatedFilesTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly List<Regex> _filesToIgnore =
+	[
+		new(@"^\.gitignore$", RegexOptions.IgnoreCase),
+		new(@"^[a-z]+\.dbs?", RegexOptions.IgnoreCase),
+		new(@"^[a-z]+\.wad\.backup[1-9]?", RegexOptions.IgnoreCase),
+	];
 
 	public Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{

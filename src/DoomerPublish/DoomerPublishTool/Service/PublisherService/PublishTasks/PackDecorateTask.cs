@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Globalization;
+﻿using DoomerPublish.Tools.Decorate;
+using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,7 +8,9 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task packs all the decorate code into a single file, and removes the packed files from the project.
 /// </summary>
-internal sealed class PackDecorateTask : IPublishTask
+internal sealed class PackDecorateTask(
+	ILogger<PackDecorateTask> logger)
+	: IPublishTask
 {
 	/// <summary>
 	/// Header message to put as the header for the generated files.
@@ -34,20 +36,20 @@ internal sealed class PackDecorateTask : IPublishTask
 	/// <summary>
 	/// Regex to find any sort of comment or empty line.
 	/// </summary>
-	private readonly Regex _commentWhitelineRegex = new(@"^(\s*\/\/|\s*\/\*[\w\d\(\)\"",.\s]*\*\/|\s*$)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+	private readonly Regex _commentWhitelineRegex = new(@"^(\s*\/\/[^$]|\s*\/\*[\w\d\(\)\"",.\s]*\*\/|\s*$)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
 	/// <summary>
 	/// Regex to determine an included file.
 	/// </summary>
 	private readonly Regex _includeRegex = new(@"#include ""(?<file>[\w\d\/\\\.]+)""", RegexOptions.IgnoreCase);
 
-	private readonly ILogger _logger;
+	/// <inheritdoc cref="ILogger" />
+	private readonly ILogger _logger = logger;
 
-	public PackDecorateTask(
-		ILogger<PackDecorateTask> logger)
-	{
-		this._logger = logger;
-	}
+	/// <summary>
+	/// The possible line separators that can be used.
+	/// </summary>
+	private readonly string[] lineSeparators = ["\r\n", "\r", "\n"];
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -82,6 +84,12 @@ internal sealed class PackDecorateTask : IPublishTask
 		var stringBuilder = new StringBuilder();
 		foreach (var decorateFile in decorateFiles)
 		{
+			// Do not process this decorate file if it's stripped from the output.
+			if (decorateFile.StripFromOutput)
+			{
+				continue;
+			}
+
 			this.RecursiveProcessDecorateFile(decorateFile, stringBuilder);
 		}
 
@@ -102,7 +110,7 @@ internal sealed class PackDecorateTask : IPublishTask
 
 	private void RecursiveProcessDecorateFile(DecorateFile file, StringBuilder stringBuilder)
 	{
-		var lines = file.Content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+		var lines = file.Content.Split(this.lineSeparators, StringSplitOptions.None);
 		var filteredLines = this.FilterEmptyCommentedOrIncludingLines(lines)
 			.Select(x => x.Trim());
 

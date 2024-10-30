@@ -5,15 +5,11 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task removes the temporary directory that is created.
 /// </summary>
-internal sealed class RemoveTemporaryDirectoryTask : IPublishTask
+internal sealed class RemoveTemporaryDirectoryTask(
+	ILogger<RemoveTemporaryDirectoryTask> logger)
+	: IPublishTask
 {
-	private readonly ILogger _logger;
-
-	public RemoveTemporaryDirectoryTask(
-		ILogger<RemoveTemporaryDirectoryTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -23,7 +19,8 @@ internal sealed class RemoveTemporaryDirectoryTask : IPublishTask
 		}
 
 		// The user did not create a temporary directory.
-		if (!context.Configuration.CreateTemporaryProject) {
+		if (!context.Configuration.CreateTemporaryProject)
+		{
 			return Task.CompletedTask;
 		}
 
@@ -32,6 +29,7 @@ internal sealed class RemoveTemporaryDirectoryTask : IPublishTask
 
 		// The project path will have been modified to be the temporary directory.
 		// This small check ensures it's not the same as the initial input directory.
+		// Should never happen, but better safe than sorry.
 		if (string.Equals(context.Configuration.InputProjectDir, projectContext.ProjectPath, StringComparison.OrdinalIgnoreCase))
 		{
 			throw new InvalidOperationException("Expected the configured input directory to differ from the current input directory.");

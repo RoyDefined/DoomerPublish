@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DoomerPublish.Tools.Decorate;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text;
 
@@ -7,7 +8,9 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task generates a summary of all decorate actors used.
 /// </summary>
-internal sealed class GenerateDecorateSummaryTask : IPublishTask
+internal sealed class GenerateDecorateSummaryTask(
+	ILogger<GenerateDecorateSummaryTask> logger)
+	: IPublishTask
 {
 	/// <summary>
 	/// Header message to put as the header for the generated files.
@@ -31,13 +34,8 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 		// - Reach out to the developer for assistance with any concerns.
 		""";
 
-	private readonly ILogger _logger;
-
-	public GenerateDecorateSummaryTask(
-		ILogger<GenerateDecorateSummaryTask> logger)
-	{
-		this._logger = logger;
-	}
+	/// <inheritdoc cref="ILogger" />
+	private readonly ILogger _logger = logger;
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -111,7 +109,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 
 	private static void GetDoomedNums(DecorateFile file, List<int> doomedNums)
 	{
-		if (file.Actors != null && file.Actors.Any())
+		if (file.Actors != null && file.Actors.Count != 0)
 		{
 			doomedNums.AddRange(
 				file.Actors
@@ -134,7 +132,8 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 
 	private static void InsertDecorateDoomedNums(List<int> doomedNums, StringBuilder stringBuilder)
 	{
-		if (!doomedNums.Any()) {
+		if (doomedNums.Count == 0)
+		{
 			return;
 		}
 
@@ -143,7 +142,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 		_ = stringBuilder
 			.AppendLine("// This is a full list of all known Doomednums.");
 
-		foreach(var doomedNum in orderedDoomedNums)
+		foreach (var doomedNum in orderedDoomedNums)
 		{
 			_ = stringBuilder
 				.Append("// ")
@@ -157,7 +156,7 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 	private static void InsertDecorateSummary(DecorateFile file, StringBuilder stringBuilder)
 	{
 		// The file has actors.
-		if (file.Actors != null && file.Actors.Any())
+		if (file.Actors != null && file.Actors.Count != 0)
 		{
 			foreach (var actor in file.Actors)
 			{
@@ -165,10 +164,12 @@ internal sealed class GenerateDecorateSummaryTask : IPublishTask
 					.Append("// ")
 					.Append(actor.Name);
 
-				if (!string.IsNullOrEmpty(actor.InheritedFrom)) {
+				if (!string.IsNullOrEmpty(actor.InheritedFrom))
+				{
 					_ = definitionBuilder.Append(CultureInfo.InvariantCulture, $": {actor.InheritedFrom}");
 				}
-				if (actor.Doomednum != null) {
+				if (actor.Doomednum != null)
+				{
 					_ = definitionBuilder
 						.Append(' ')
 						.Append(actor.Doomednum);

@@ -1,0 +1,62 @@
+strict namespace
+{
+	enum publicIntegerEnumT : int
+	{
+		publicIntegerOne = 5,
+		publicIntegerTwo,
+		publicIntegerThree = 10,
+	};
+	
+	enum {
+		publicIntegerFour = 15,
+		
+		// This is a comment, and the parser won't parse it.
+		publicIntegerFive = 20,
+		
+		/*
+			This is a multi-line comment,
+			and the parser won't parse it.
+		*/
+		publicIntegerSix,
+	};
+	
+	enum
+	{
+		publicIntegerBitshiftOne = 1 << 0
+		publicIntegerBitshiftTwo = 1 << 1,
+		publicIntegerBitshiftThree = 1 << 2
+	};
+	
+	// This is a comment, and the parser won't parse it.
+	enum : int { publicIntInline = 25 };
+	
+	private enum _privateIntegerEnumT : int {
+		privateIntegerOne = 5,
+		privateIntegerTwo,
+		privateIntegerThree = 10,
+	}
+	
+	enum publicStringEnumT : str
+	{
+		publicStringOne = "foo",
+		publicStringTwo = "bar"
+	}
+	
+	enum : str { publicStringInline = /* This is a comment, and the parser won't parse it. */"Hello, world!" };
+	
+	enum publicFloatEnumT : fixed
+	{
+		publicFixedOne = 5.0,
+		publicFixedTwo = 5.25,
+		publicFixedThree = 5.5,
+	};
+	
+	enum : fixed
+	{
+		publicFixedFour = 6.0,
+		publicFixedFive = 6.25,
+		publicFixedSix = 6.5,
+	};
+	
+	enum : fixed { publicFixedInline = 5.2 };
+}

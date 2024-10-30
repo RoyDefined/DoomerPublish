@@ -1,0 +1,19 @@
+actor AbstractableActor
+{
+	//$Category "Test project / abstracted"
+	//$NotAngled
+}
+
+actor RegularActor 10001
+{
+	//$Category "Test project"
+	//$NotAngled
+	
+	states
+	{
+		Spawn:
+			TNT1 A -1
+	}
+}
+
+#include "Include/includedactor.dec"

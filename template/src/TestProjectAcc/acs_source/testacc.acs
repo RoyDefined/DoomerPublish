@@ -3,6 +3,9 @@
 
 #include "zcommon.acs"
 
+// Included files
+#include "test_project/defines.acs"
+
 // @todo: Handle this todo item, which only exists to show how todo items work.
 // @todo I am also a todo item!
 

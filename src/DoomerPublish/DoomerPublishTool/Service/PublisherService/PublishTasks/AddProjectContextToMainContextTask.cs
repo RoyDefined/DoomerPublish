@@ -7,6 +7,7 @@ namespace DoomerPublish.PublishTasks;
 /// </summary>
 internal sealed class AddProjectContextToMainContextTask : IPublishTask
 {
+	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
 
 	public AddProjectContextToMainContextTask(

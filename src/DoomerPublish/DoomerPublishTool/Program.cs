@@ -5,13 +5,13 @@ using System.Text;
 using System.Globalization;
 using CommandLine;
 using CommandLine.Text;
+using Microsoft.Extensions.Logging;
 
 #if DEBUG
 using Serilog.Debugging;
 using Serilog.Core;
 using Serilog;
 #else
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 #endif
 
@@ -114,10 +114,12 @@ catch (Exception ex)
 	return;
 }
 
+var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+
 PublisherResult? publisherResult = null;
 try
 {
-	await Console.Out.WriteLineAsync("Application has started.");
+	logger.LogDebug("Application has started.");
 
 	var analyzerService = serviceProvider.GetService<IPublisherService>() ??
 		throw new InvalidOperationException($"Service not found: {nameof(IPublisherService)}");
@@ -127,9 +129,9 @@ try
 catch (Exception ex)
 {
 	var stringbuilder = new StringBuilder()
-		.AppendLine(CultureInfo.InvariantCulture, $"Error during application lifetime.")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.Message}")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.StackTrace}");
+		.AppendLine("Error during application lifetime.")
+		.AppendLine(ex.Message)
+		.AppendLine(ex.StackTrace);
 	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
 	return;
 }
@@ -138,24 +140,46 @@ catch (Exception ex)
 if (publisherResult?.Success == false)
 {
 	var stringbuilder = new StringBuilder()
-		.AppendLine(CultureInfo.InvariantCulture, $"Error during publisher tool invokation.");
+		.AppendLine("Error during tool invokation.");
 
 	if (publisherResult != null)
 	{
 		var lastTask = publisherResult.Context.FinishedTasks.LastOrDefault();
 		if (lastTask != null)
 		{
-			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Last finished task: {lastTask.Name}");
+			_ = stringbuilder.AppendLine("Last finished task: " + lastTask.Name);
 		}
 		if (publisherResult.Context.RunningTask != null)
 		{
-			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Running task: {publisherResult.Context.RunningTask.Name}");
+			_ = stringbuilder.AppendLine("Running task: " + publisherResult.Context.RunningTask.Name);
 		}
 
-		_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{publisherResult.Exception!.Message}");
+		// Try to get the exception.
+		// The inner exception is the root issue.
+		var exception = publisherResult.Exception;
+		if (exception != null)
+		{
+			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception: {exception.Message}");
+			_ = stringbuilder.AppendLine(exception.StackTrace);
+
+			var innerException = exception.InnerException;
+			var stringPrefix = "\t";
+			while (innerException != null)
+			{
+				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}Inner Exception: {innerException.Message}");
+				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}{innerException.StackTrace}");
+
+				innerException = innerException.InnerException;
+				stringPrefix += "\t";
+			}
+		}
+	}
+	else
+	{
+		_ = stringbuilder.AppendLine("Tool returned failure, error unknown.");
 	}
 
 	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
 }
 
-await Console.Out.WriteLineAsync("Application has finished.");
+logger.LogDebug("Application has finished.");
