@@ -9,7 +9,9 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task generates a todo file for the project.
 /// </summary>
-internal sealed class GenerateTodoListTask : IPublishTask
+internal sealed class GenerateTodoListTask(
+	ILogger<GenerateTodoListTask> logger)
+	: IPublishTask
 {
 	/// <summary>
 	/// The file header that will be put in each file.
@@ -35,13 +37,7 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		""";
 
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
-	public GenerateTodoListTask(
-		ILogger<GenerateTodoListTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -51,7 +47,8 @@ internal sealed class GenerateTodoListTask : IPublishTask
 		}
 
 		var todoOutput = context.Configuration.GenerateTodoListAtDirectory;
-		if (string.IsNullOrEmpty(todoOutput)) {
+		if (string.IsNullOrEmpty(todoOutput))
+		{
 			return;
 		}
 

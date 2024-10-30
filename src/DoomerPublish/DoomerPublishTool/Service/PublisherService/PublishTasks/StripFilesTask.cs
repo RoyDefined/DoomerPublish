@@ -7,27 +7,23 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task strips any files that end with the given strings from the project. This includes included files included in the parent file.
 /// </summary>
-internal sealed class StripFilesTask : IPublishTask
+internal sealed class StripFilesTask(
+	ILogger<StripFilesTask> logger)
+	: IPublishTask
 {
 	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
+	private readonly ILogger _logger = logger;
 
 	/// <summary>
 	/// This is the list of folders that should be looked into and stripped based on the provided parameters.
 	/// </summary>
-	private readonly List<string> _stripFolders = new()
-	{
+	private readonly List<string> _stripFolders =
+	[
 		"graphics",
 		"patches",
 		"sprites",
 		"textures",
-	};
-
-	public StripFilesTask(
-		ILogger<StripFilesTask> logger)
-	{
-		this._logger = logger;
-	}
+	];
 
 	public Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -69,10 +65,11 @@ internal sealed class StripFilesTask : IPublishTask
 
 	private void RemoveFiles(IEnumerable<IFileContext> files)
 	{
-		foreach(var file in files)
+		foreach (var file in files)
 		{
 			var filePath = Path.Join(file.AbsoluteFolderPath, file.Name);
-			if (!File.Exists(filePath)) {
+			if (!File.Exists(filePath))
+			{
 				throw new FileNotFoundException($"The file to delete could not be found: {filePath}", file.Name);
 			}
 
@@ -89,18 +86,20 @@ internal sealed class StripFilesTask : IPublishTask
 
 	private void StripFolders(ProjectContext projectContext, IEnumerable<string> fileSuffixes)
 	{
-		foreach(var folder in this._stripFolders)
+		foreach (var folder in this._stripFolders)
 		{
 			// Find the target folder
 			var folderPath = Path.Join(projectContext.ProjectPath, folder);
-			if (!Directory.Exists(folderPath)) {
+			if (!Directory.Exists(folderPath))
+			{
 				continue;
 			}
 
 			foreach (var stripFileExtension in fileSuffixes)
 			{
 				var stripFolderPath = Path.Join(folderPath, stripFileExtension);
-				if (!Directory.Exists(stripFolderPath)) {
+				if (!Directory.Exists(stripFolderPath))
+				{
 					continue;
 				}
 

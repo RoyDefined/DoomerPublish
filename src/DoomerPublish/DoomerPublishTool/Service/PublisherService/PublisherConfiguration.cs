@@ -7,7 +7,7 @@ namespace DoomerPublish;
 /// <summary>
 /// Represents the compiler to use during publishing.
 /// </summary>
-public enum CompileType
+internal enum CompileType
 {
 	Unknown,
 	Acc,
@@ -19,7 +19,7 @@ public enum CompileType
 /// <summary>
 /// Represents the engine to target during publishing.
 /// </summary>
-public enum EngineType
+internal enum EngineType
 {
 	Unknown,
 	Zdoom,
@@ -30,7 +30,7 @@ public enum EngineType
 /// <summary>
 /// Represents all configurable configuration for a publish process.
 /// </summary>
-public class PublisherConfiguration
+internal class PublisherConfiguration
 {
 	[Value(index: 0, Required = true, HelpText = "Absolute path to the project directory.")]
 	public required string InputProjectDir { get; init; }
@@ -91,7 +91,7 @@ public class PublisherConfiguration
 
 	// Property getters
 
-	public CompileType CompileWithParsed => this.CompileWith?.ToUpperInvariant() switch
+	internal CompileType CompileWithParsed => this.CompileWith?.ToUpperInvariant() switch
 	{
 		"ACC" => CompileType.Acc,
 		"BCC" => CompileType.Bcc,
@@ -100,7 +100,7 @@ public class PublisherConfiguration
 		_ => CompileType.Unknown,
 	};
 
-	public EngineType EngineTypeParsed => this.ForEngine?.ToUpperInvariant() switch
+	internal EngineType EngineTypeParsed => this.ForEngine?.ToUpperInvariant() switch
 	{
 		"ZDOOM" => EngineType.Zdoom,
 		"ZANDRONUM" => EngineType.Zandronum,

@@ -12,26 +12,19 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task collects all decorate content from the projects.
 /// </summary>
-internal sealed class AddDecorateToContextTask : IPublishTask
+internal sealed class AddDecorateToContextTask(
+	ILogger<AddDecorateToContextTask> logger,
+	IDecorateService decorateService,
+	IDecorateParseService decorateParseService) : IPublishTask
 {
-	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-	private readonly IDecorateService _decorateService;
-	private readonly IDecorateParseService _decorateParseService;
-
-	public AddDecorateToContextTask(
-		ILogger<AddDecorateToContextTask> logger,
-		IDecorateService decorateService,
-		IDecorateParseService decorateParseService)
-	{
-		this._logger = logger;
-		this._decorateService = decorateService;
-		this._decorateParseService = decorateParseService;
-	}
+	private readonly ILogger _logger = logger;
+	private readonly IDecorateService _decorateService = decorateService;
+	private readonly IDecorateParseService _decorateParseService = decorateParseService;
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
-		if (stoppingToken.IsCancellationRequested) {
+		if (stoppingToken.IsCancellationRequested)
+		{
 			return;
 		}
 
@@ -53,9 +46,9 @@ internal sealed class AddDecorateToContextTask : IPublishTask
 			return;
 		}
 
-		await foreach(var decorateFile in this.CollectDecorateAsync(rootDecorateFiles, stoppingToken))
+		await foreach (var decorateFile in this.CollectDecorateAsync(rootDecorateFiles, stoppingToken))
 		{
-			project.MainDecorateFiles ??= new();
+			project.MainDecorateFiles ??= [];
 			project.MainDecorateFiles.Add(decorateFile);
 			this._logger.LogDebug("Added decorate file {DecorateFileName}", decorateFile.Name);
 		}

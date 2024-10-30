@@ -30,6 +30,7 @@ internal sealed class GdccCompile : Compiler
 		{
 			CompileType.GdccAcc => "gdcc-acc.exe",
 			CompileType.GdccC => "gdcc-cc.exe",
+			CompileType.Acc or CompileType.Bcc or CompileType.Unknown => throw new UnreachableException(),
 			_ => throw new InvalidOperationException($"Invalid compile type for GDCC compilation: {compileType}"),
 		};
 

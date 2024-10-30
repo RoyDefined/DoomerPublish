@@ -9,7 +9,9 @@ namespace DoomerPublish.PublishTasks;
 /// <summary>
 /// This task generates a public ACS source based on the context that exists for the ACS in the project.
 /// </summary>
-internal sealed class GeneratePublicAcsSourceTask : IPublishTask
+internal sealed class GeneratePublicAcsSourceTask(
+	ILogger<GeneratePublicAcsSourceTask> logger)
+	: IPublishTask
 {
 	/// <summary>
 	/// Header message to put as the header for the generated files.
@@ -34,14 +36,7 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 		// - Reach out to the developer for assistance with any concerns.
 		""";
 
-	/// <inheritdoc cref="ILogger" />
-	private readonly ILogger _logger;
-
-	public GeneratePublicAcsSourceTask(
-		ILogger<GeneratePublicAcsSourceTask> logger)
-	{
-		this._logger = logger;
-	}
+	private readonly ILogger _logger = logger;
 
 	public async Task RunAsync(PublishContext context, CancellationToken stoppingToken)
 	{
@@ -51,7 +46,8 @@ internal sealed class GeneratePublicAcsSourceTask : IPublishTask
 		}
 
 		// User does not want an acs source generated.
-		if (!context.Configuration.GeneratePublicAcsSource) {
+		if (!context.Configuration.GeneratePublicAcsSource)
+		{
 			return;
 		}
 

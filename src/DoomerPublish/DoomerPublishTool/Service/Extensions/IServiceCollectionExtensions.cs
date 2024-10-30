@@ -2,7 +2,7 @@
 
 namespace DoomerPublish;
 
-public static class IServiceCollectionExtensions
+internal static class IServiceCollectionExtensions
 {
 	/// <summary>
 	/// Adds the base publisher to the service collection.
@@ -10,12 +10,12 @@ public static class IServiceCollectionExtensions
 	/// <param name="serviceCollection"> The service collection to add the library tools into.</param>
 	/// <returns>The service collection.</returns>
 	public static IServiceCollection AddPublisher(
-        this IServiceCollection serviceCollection)
-    {
+		this IServiceCollection serviceCollection)
+	{
 		ArgumentNullException.ThrowIfNull(serviceCollection);
 
 		_ = serviceCollection.AddSingleton<IPublisherService, DefaultPublisherService>();
 		_ = serviceCollection.AddDoomerPublishTools();
 		return serviceCollection;
-    }
+	}
 }
