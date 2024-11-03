@@ -11,7 +11,7 @@ public static class IServiceCollectionExtensions
 	/// </summary>
 	/// <param name="serviceCollection"> The service collection to add the library tools into.</param>
 	/// <returns>The service collection.</returns>
-	public static IServiceCollection AddDoomerPublishTools(
+	public static IServiceCollection AddDoomerPublish(
 		this IServiceCollection serviceCollection)
 	{
 		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();

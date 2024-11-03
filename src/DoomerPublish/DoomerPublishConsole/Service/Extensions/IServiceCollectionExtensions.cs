@@ -16,7 +16,7 @@ internal static class IServiceCollectionExtensions
 		ArgumentNullException.ThrowIfNull(serviceCollection);
 
 		_ = serviceCollection.AddSingleton<IPublisherService, DefaultPublisherService>();
-		_ = serviceCollection.AddDoomerPublishTools();
+		_ = serviceCollection.AddDoomerPublish();
 		return serviceCollection;
 	}
 }
