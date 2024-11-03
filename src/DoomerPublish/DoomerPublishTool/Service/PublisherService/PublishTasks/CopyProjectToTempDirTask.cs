@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task copies over the project into a temporary directory, and uses that directory for concurrent tasks.<br/>

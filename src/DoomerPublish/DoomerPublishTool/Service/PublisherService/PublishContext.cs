@@ -1,7 +1,7 @@
 ﻿using DoomerPublish.Tools.Acs;
 using DoomerPublish.Tools.Decorate;
 
-namespace DoomerPublish;
+namespace DoomerPublishConsole;
 
 /// <summary>
 /// Represents the main project context containing all collected data.

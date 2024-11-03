@@ -2,7 +2,7 @@
 using DoomerPublish.Tools.Common;
 using Microsoft.Extensions.Logging;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task strips any files that end with the given strings from the project. This includes included files included in the parent file.

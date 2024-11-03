@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task generates a summary of all decorate actors used.

@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace DoomerPublish;
+namespace DoomerPublishConsole;
 
 internal sealed class CommandOptions : PublisherConfiguration
 {

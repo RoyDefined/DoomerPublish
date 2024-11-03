@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using DoomerPublish.Tools.Acs;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task collects all relevant data from the ACS files found in the ACS source and puts it in the main context.

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// Represents a task that creates a project context which will be used by the tasks.

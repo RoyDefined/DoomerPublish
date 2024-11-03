@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.IO.Compression;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task packs the projects into a pk3 and into the given folder.

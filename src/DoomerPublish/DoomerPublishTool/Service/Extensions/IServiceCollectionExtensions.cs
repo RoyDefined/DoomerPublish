@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using DoomerPublish;
 
-namespace DoomerPublish;
+namespace DoomerPublishConsole;
 
 internal static class IServiceCollectionExtensions
 {

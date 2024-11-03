@@ -1,4 +1,4 @@
-﻿namespace DoomerPublish;
+﻿namespace DoomerPublishConsole;
 
 /// <summary>
 /// Represents the result of a publish process.

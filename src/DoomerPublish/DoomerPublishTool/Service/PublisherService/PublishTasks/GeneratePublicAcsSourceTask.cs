@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Text;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task generates a public ACS source based on the context that exists for the ACS in the project.

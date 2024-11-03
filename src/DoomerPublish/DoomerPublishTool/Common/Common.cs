@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 
-namespace DoomerPublish;
+namespace DoomerPublishConsole;
 
 internal static class Common
 {

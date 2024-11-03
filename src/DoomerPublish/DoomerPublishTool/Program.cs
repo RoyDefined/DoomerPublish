@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DoomerPublish;
+using DoomerPublishConsole;
 using System.Text;
 using System.Globalization;
 using CommandLine;

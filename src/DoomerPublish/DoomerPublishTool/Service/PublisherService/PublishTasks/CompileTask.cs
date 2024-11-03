@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task removes the ACS source from all the projects.

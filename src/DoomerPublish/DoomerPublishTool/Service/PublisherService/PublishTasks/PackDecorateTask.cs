@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace DoomerPublish.PublishTasks;
+namespace DoomerPublishConsole.PublishTasks;
 
 /// <summary>
 /// This task packs all the decorate code into a single file, and removes the packed files from the project.
