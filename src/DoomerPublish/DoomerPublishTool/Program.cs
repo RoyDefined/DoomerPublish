@@ -6,14 +6,9 @@ using System.Globalization;
 using CommandLine;
 using CommandLine.Text;
 using Microsoft.Extensions.Logging;
-
-#if DEBUG
 using Serilog.Debugging;
 using Serilog.Core;
 using Serilog;
-#else
-using Microsoft.Extensions.Logging.Console;
-#endif
 
 #pragma warning disable CA1852
 
@@ -42,24 +37,13 @@ try
 
 	configuration = configurationBuilder.Build();
 
-#if DEBUG
 	// Use this only for development purposes, or when there is no access to injected services. Use the injected ILogger for anything else.
 	Log.Logger = new LoggerConfiguration()
 		.ReadFrom.Configuration(configuration)
 		.CreateLogger();
-#endif
 
 	services = new ServiceCollection();
-
-	// Logging
-#if DEBUG
 	_ = services.AddLogging(builder => builder.AddSerilog(Log.Logger));
-#else
-	_ = services.AddLogging((configure) =>
-		configure.AddSimpleConsole((configureConsole) =>
-			configureConsole.ColorBehavior = LoggerColorBehavior.Disabled));
-#endif
-
 	_ = services.AddPublisher();
 }
 catch (Exception ex)
