@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default parser to parse libdefines that exist in a file.
+/// Represents the parser to parse libdefines that exist in a file.
 /// </summary>
-internal sealed class DefaultLibdefineParser : IAcsParser
+internal sealed class LibdefineParser : IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
@@ -16,8 +16,8 @@ internal sealed class DefaultLibdefineParser : IAcsParser
 	/// </summary>
 	private readonly Regex _libdefineRegex = new(@"#libdefine (?<key>[^\s]+) (?<value>.+)", RegexOptions.IgnoreCase);
 
-	public DefaultLibdefineParser(
-		ILogger<DefaultLibdefineParser> logger)
+	public LibdefineParser(
+		ILogger<LibdefineParser> logger)
 	{
 		this._logger = logger;
 	}

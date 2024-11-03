@@ -1,14 +1,15 @@
 ﻿using DoomerPublish.Tools.Acs;
+using DoomerPublish.Tools.Decorate;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
-namespace DoomerPublish.Tools.Decorate;
+namespace DoomerPublish.Service.Tools.DecorateParseService.Parse;
 
 /// <summary>
-/// Represents the default parser to parse an actor definition.
+/// Represents the parser to parse an actor definition.
 /// </summary>
-internal sealed class DefaultActorParser(
-	ILogger<DefaultActorParser> logger)
+internal sealed class ActorParser(
+	ILogger<ActorParser> logger)
 	: IDecorateParser
 {
 	/// <inheritdoc cref="ILogger" />

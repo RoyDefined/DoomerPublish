@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using DoomerPublish.Tools.Decorate;
 using DoomerPublish.Tools.Common;
 using DoomerPublish.Tools.Acs;
+using DoomerPublish.Service.Tools.DecorateParseService.Parse;
 
 namespace DoomerPublish.Tools.Decorate;
 
-internal sealed class DefaultDecorateParseService(
-	ILogger<DefaultDecorateParseService> logger,
+internal sealed class DecorateParseService(
+	ILogger<DecorateParseService> logger,
 	IServiceProvider serviceProvider)
 	: IDecorateParseService
 {
@@ -22,9 +22,9 @@ internal sealed class DefaultDecorateParseService(
 	/// </summary>
 	private readonly List<Type> _parseTasks =
 	[
-		typeof(DefaultActorParser),
-		typeof(DefaultTodoParser),
-		typeof(DefaultIncludeParser),
+		typeof(ActorParser),
+		typeof(TodoParser),
+		typeof(IncludeParser),
 	];
 
 	/// <inheritdoc />

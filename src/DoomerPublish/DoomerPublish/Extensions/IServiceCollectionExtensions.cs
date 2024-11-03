@@ -15,13 +15,13 @@ public static class IServiceCollectionExtensions
 	public static IServiceCollection AddDoomerPublish(
 		this IServiceCollection serviceCollection)
 	{
-		_ = serviceCollection.AddSingleton<IPublisherService, DefaultPublisherService>();
+		_ = serviceCollection.AddSingleton<IPublisherService, PublisherService>();
 
-		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();
-		_ = serviceCollection.AddSingleton<IAcsParseService, DefaultAcsParseService>();
+		_ = serviceCollection.AddSingleton<IAcsService, AcsService>();
+		_ = serviceCollection.AddSingleton<IAcsParseService, AcsParseService>();
 
-		_ = serviceCollection.AddSingleton<IDecorateService, DefaultDecorateService>();
-		_ = serviceCollection.AddSingleton<IDecorateParseService, DefaultDecorateParseService>();
+		_ = serviceCollection.AddSingleton<IDecorateService, DecorateService>();
+		_ = serviceCollection.AddSingleton<IDecorateParseService, DecorateParseService>();
 
 		return serviceCollection;
 	}

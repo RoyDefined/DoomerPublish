@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Common;
 
 /// <summary>
-/// Represents the default TODO parser to parse todo items that exist in a given file.
+/// Represents the TODO parser to parse todo items that exist in a given file.
 /// </summary>
-internal sealed class DefaultTodoParser : IAcsParser, IDecorateParser
+internal sealed class TodoParser : IAcsParser, IDecorateParser
 {
 	/// <summary>
 	/// Regex to find a todo item.

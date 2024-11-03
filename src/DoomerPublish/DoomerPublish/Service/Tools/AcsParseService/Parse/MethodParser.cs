@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default parser to parse a function or method.
+/// Represents the parser to parse a function or method.
 /// </summary>
-internal sealed class DefaultMethodParser(
-	ILogger<DefaultMethodParser> logger)
+internal sealed class MethodParser(
+	ILogger<MethodParser> logger)
 	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />

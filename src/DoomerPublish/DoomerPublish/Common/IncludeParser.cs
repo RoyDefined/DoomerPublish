@@ -7,10 +7,10 @@ using System.Threading;
 namespace DoomerPublish.Tools.Common;
 
 /// <summary>
-/// Represents the default include parser to parse file inclusions.
+/// Represents the include parser to parse file inclusions.
 /// </summary>
-internal sealed class DefaultIncludeParser(
-	ILogger<DefaultIncludeParser> logger)
+internal sealed class IncludeParser(
+	ILogger<IncludeParser> logger)
 		: IAcsParser, IDecorateParser
 {
 	/// <inheritdoc cref="ILogger" />

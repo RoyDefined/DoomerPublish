@@ -6,10 +6,10 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default enum parser to parse an enum.
+/// Represents the enum parser to parse enums.
 /// </summary>
-internal sealed class DefaultEnumParser(
-	ILogger<DefaultEnumParser> logger)
+internal sealed class EnumParser(
+	ILogger<EnumParser> logger)
 	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />

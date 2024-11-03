@@ -3,10 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Decorate;
 
-/// <summary>
-/// Repesents the default implementation for <see cref="IDecorateService"/>.
-/// </summary>
-internal sealed class DefaultDecorateService : IDecorateService
+internal sealed class DecorateService : IDecorateService
 {
 	/// <summary>
 	/// Regex to find a decorate file. This accepts "decorate", but also "decorate.*" with any prefix since this is a valid file.

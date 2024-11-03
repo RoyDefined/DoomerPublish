@@ -8,10 +8,10 @@ using DoomerPublish.Tools.Common;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default service to handle the parsing of an ACS file.
+/// Represents the service to handle the parsing of an ACS file.
 /// </summary>
-internal sealed class DefaultAcsParseService(
-	ILogger<DefaultAcsParseService> logger,
+internal sealed class AcsParseService(
+	ILogger<AcsParseService> logger,
 	IServiceProvider serviceProvider)
 	: IAcsParseService
 {
@@ -24,19 +24,19 @@ internal sealed class DefaultAcsParseService(
 	/// <summary>
 	/// Represents the library parse task type. This is added seperately in case we parse a library file.
 	/// </summary>
-	private readonly Type _libraryParseTask = typeof(DefaultLibraryParser);
+	private readonly Type _libraryParseTask = typeof(LibraryParser);
 
 	/// <summary>
 	/// Represents the list of parse tasks that must be invoked on the file.
 	/// </summary>
 	private readonly List<Type> _parseTasks =
 	[
-		typeof(DefaultNamespaceParser),
-		typeof(DefaultMethodParser),
-		typeof(DefaultLibdefineParser),
-		typeof(DefaultEnumParser),
-		typeof(DefaultTodoParser),
-		typeof(DefaultIncludeParser),
+		typeof(NamespaceParser),
+		typeof(MethodParser),
+		typeof(LibdefineParser),
+		typeof(EnumParser),
+		typeof(TodoParser),
+		typeof(IncludeParser),
 	];
 
 	/// <inheritdoc />

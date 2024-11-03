@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default parser that parses a library definition from a file.
+/// Represents the parser that parses a library definition from a file.
 /// </summary>
-internal sealed class DefaultLibraryParser : IAcsParser
+internal sealed class LibraryParser : IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />
 	private readonly ILogger _logger;
@@ -16,8 +16,8 @@ internal sealed class DefaultLibraryParser : IAcsParser
 	/// </summary>
 	private readonly Regex _libraryRegex = new(@"#library ""(?<library>[a-z]+)""", RegexOptions.IgnoreCase);
 
-	public DefaultLibraryParser(
-		ILogger<DefaultLibraryParser> logger)
+	public LibraryParser(
+		ILogger<LibraryParser> logger)
 	{
 		this._logger = logger;
 	}

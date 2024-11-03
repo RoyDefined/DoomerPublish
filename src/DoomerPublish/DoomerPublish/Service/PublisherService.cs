@@ -5,10 +5,7 @@ using System.Net;
 
 namespace DoomerPublish;
 
-/// <summary>
-/// The default implementation of <see cref="IPublisherService"/>.
-/// </summary>
-internal sealed class DefaultPublisherService(
+internal sealed class PublisherService(
 	ILogger<IPublisherService> logger,
 	IServiceProvider serviceProvider)
 	: IPublisherService

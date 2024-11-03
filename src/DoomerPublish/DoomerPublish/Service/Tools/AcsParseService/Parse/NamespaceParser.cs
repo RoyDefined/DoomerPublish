@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 namespace DoomerPublish.Tools.Acs;
 
 /// <summary>
-/// Represents the default parser to parse a file namespace.
+/// Represents the parser to parse a file namespace.
 /// </summary>
-internal sealed class DefaultNamespaceParser(
-	ILogger<DefaultNamespaceParser> logger)
+internal sealed class NamespaceParser(
+	ILogger<NamespaceParser> logger)
 	: IAcsParser
 {
 	/// <inheritdoc cref="ILogger" />

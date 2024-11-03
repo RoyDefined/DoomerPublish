@@ -4,11 +4,8 @@ using System.Text.RegularExpressions;
 
 namespace DoomerPublish.Tools.Acs;
 
-/// <summary>
-/// Repesents the default implementation for <see cref="IAcsService"/>.
-/// </summary>
-internal sealed class DefaultAcsService(
-	ILogger<DefaultAcsService> logger)
+internal sealed class AcsService(
+	ILogger<AcsService> logger)
 	: IAcsService
 {
 	/// <inheritdoc cref="ILogger" />
