@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DoomerPublish.lib\DoomerPublish.lib.csproj" />
+    <ProjectReference Include="..\DoomerPublish.lib\DoomerPublish.csproj" />
   </ItemGroup>
 
   <ItemGroup>
