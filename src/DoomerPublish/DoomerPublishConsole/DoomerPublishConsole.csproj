@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>DoomerPublish</AssemblyName>
+    <AssemblyName>DoomerPublishConsole</AssemblyName>
     <RootNamespace>DoomerPublishConsole</RootNamespace>
     <Authors>RoyDefined</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
