@@ -12,18 +12,13 @@ using Serilog;
 
 #pragma warning disable CA1852
 
-ServiceCollection? services = null;
-IConfiguration? configuration = null;
+IConfiguration configuration;
+IServiceProvider serviceProvider;
 
 if (!CommandOptions.TryParse(args, out var commandOptions))
 {
 	return;
 }
-
-#if DEBUG
-// This allows Serilog to log any errors it occured during initialization.
-SelfLog.Enable(Console.Error.WriteLine);
-#endif
 
 try
 {
@@ -42,39 +37,28 @@ try
 		.ReadFrom.Configuration(configuration)
 		.CreateLogger();
 
-	services = new ServiceCollection();
+	var services = new ServiceCollection();
 	_ = services.AddLogging(builder => builder.AddSerilog(Log.Logger));
 	_ = services.AddPublisher();
-}
-catch (Exception ex)
-{
-	var stringbuilder = new StringBuilder()
-		.AppendLine(CultureInfo.InvariantCulture, $"Error during initial builder setup.")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.Message}")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.StackTrace}");
-	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
-	return;
-}
 
-IServiceProvider? serviceProvider = null;
-
-try
-{
 	serviceProvider = services.BuildServiceProvider();
 }
 catch (Exception ex)
 {
-	var stringbuilder = new StringBuilder()
-		.AppendLine(CultureInfo.InvariantCulture, $"Error during application startup.")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.Message}")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.StackTrace}");
-	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
+	if (Log.Logger is Logger seriLogger)
+	{
+		seriLogger.Error(ex, "Error during initial builder setup.");
+	}
+	else
+	{
+		Console.Error.WriteLine($"Error during initial builder setup.\n{ex.Message}\n{ex.StackTrace}");
+	}
 	return;
 }
 
 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-PublisherResult? publisherResult = null;
+PublisherResult publisherResult;
 try
 {
 	logger.LogDebug("Application has started.");
@@ -86,58 +70,39 @@ try
 }
 catch (Exception ex)
 {
-	var stringbuilder = new StringBuilder()
-		.AppendLine("Error during application lifetime.")
-		.AppendLine(ex.Message)
-		.AppendLine(ex.StackTrace);
-	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
+	logger.LogError(ex, "Error during application lifetime.");
 	return;
 }
 
 // Display an error message if the publisher failed.
-if (publisherResult?.Success == false)
+if (publisherResult != null && publisherResult.Success)
 {
-	var stringbuilder = new StringBuilder()
-		.AppendLine("Error during tool invokation.");
-
-	if (publisherResult != null)
-	{
-		var lastTask = publisherResult.Context.FinishedTasks.LastOrDefault();
-		if (lastTask != null)
-		{
-			_ = stringbuilder.AppendLine("Last finished task: " + lastTask.Name);
-		}
-		if (publisherResult.Context.RunningTask != null)
-		{
-			_ = stringbuilder.AppendLine("Running task: " + publisherResult.Context.RunningTask.Name);
-		}
-
-		// Try to get the exception.
-		// The inner exception is the root issue.
-		var exception = publisherResult.Exception;
-		if (exception != null)
-		{
-			_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception: {exception.Message}");
-			_ = stringbuilder.AppendLine(exception.StackTrace);
-
-			var innerException = exception.InnerException;
-			var stringPrefix = "\t";
-			while (innerException != null)
-			{
-				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}Inner Exception: {innerException.Message}");
-				_ = stringbuilder.AppendLine(CultureInfo.InvariantCulture, $"{stringPrefix}{innerException.StackTrace}");
-
-				innerException = innerException.InnerException;
-				stringPrefix += "\t";
-			}
-		}
-	}
-	else
-	{
-		_ = stringbuilder.AppendLine("Tool returned failure, error unknown.");
-	}
-
-	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
+	logger.LogDebug("Application has finished succesfully.");
+	return;
 }
 
-logger.LogDebug("Application has finished.");
+logger.LogWarning("Error during tool invokation.");
+if (publisherResult == null)
+{
+	logger.LogWarning("Tool returned failure, error unknown.");
+	return;
+}
+
+var lastTask = publisherResult.Context.FinishedTasks.LastOrDefault();
+if (lastTask != null)
+{
+	logger.LogWarning("Last finished task: {LastTask}.", lastTask.Name);
+}
+
+if (publisherResult.Context.RunningTask != null)
+{
+	logger.LogWarning("Running task: {RunningTask}.", publisherResult.Context.RunningTask.Name);
+}
+
+// Try to get the exception.
+// The inner exception is the root issue.
+var exception = publisherResult.Exception;
+if (exception != null)
+{
+	logger.LogError(exception, "Application ended with exception.");
+}
