@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>DoomerPublish</AssemblyName>
-    <RootNamespace>DoomerPublish</RootNamespace>
+    <RootNamespace>DoomerPublishConsole</RootNamespace>
     <Authors>RoyDefined</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
