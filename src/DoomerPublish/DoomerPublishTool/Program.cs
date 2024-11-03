@@ -17,36 +17,11 @@ using Microsoft.Extensions.Logging.Console;
 
 #pragma warning disable CA1852
 
-CommandOptions? commandOptions = null;
 ServiceCollection? services = null;
 IConfiguration? configuration = null;
 
-// First, try to parse the arguments.
-try
+if (!CommandOptions.TryParse(args, out var commandOptions))
 {
-	var result = Parser.Default.ParseArguments<CommandOptions>(args);
-	if (result is NotParsed<CommandOptions>)
-	{
-		// Help was requested.
-		if (result.Errors.Count() == 1 && result.Errors.Single().Tag == ErrorType.HelpRequestedError)
-		{
-			return;
-		}
-
-		var builder = SentenceBuilder.Create();
-		var error = HelpText.RenderParsingErrorsText(result, builder.FormatError, builder.FormatMutuallyExclusiveSetErrors, 1);
-		throw new ArgumentException(error);
-	}
-
-	commandOptions = result.Value;
-}
-catch (Exception ex)
-{
-	var stringbuilder = new StringBuilder()
-		.AppendLine(CultureInfo.InvariantCulture, $"Error during command parsing.")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.Message}")
-		.AppendLine(CultureInfo.InvariantCulture, $"{ex.StackTrace}");
-	await Console.Error.WriteLineAsync(stringbuilder, CancellationToken.None);
 	return;
 }
 
