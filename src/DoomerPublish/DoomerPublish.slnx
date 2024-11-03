@@ -3,6 +3,6 @@
   <Properties Name="Visual Studio">
     <Property Name="OpenWith" Value="Visual Studio Version 17" />
   </Properties>
-  <Project Path="DoomerPublishTool\DoomerPublishConsole.csproj" />
-  <Project Path="DoomerPublish.lib\DoomerPublish.csproj" />
+  <Project Path="DoomerPublishConsole\DoomerPublishConsole.csproj" />
+  <Project Path="DoomerPublish\DoomerPublish.csproj" />
 </Solution>
