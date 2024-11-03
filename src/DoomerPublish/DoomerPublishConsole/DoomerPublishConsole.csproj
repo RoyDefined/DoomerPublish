@@ -21,7 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	<None Include="..\..\..\LICENSE">
 	  <Pack>True</Pack>
 	  <PackagePath>\</PackagePath>

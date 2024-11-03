@@ -6,4 +6,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists")]
 [assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only")]
 [assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:DoomerPublish.Tools.Acs.DefaultEnumParser.EnumerateFilteredEnumLines(System.Collections.Generic.IEnumerable{System.String},System.Boolean)~System.Collections.Generic.IEnumerable{DoomerPublish.Tools.Acs.AcsLibdefine}")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static")]
