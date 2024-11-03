@@ -34,7 +34,6 @@ try
 {
 	// Set up configuration
 	var configurationBuilder = new ConfigurationBuilder()
-		.SetBasePath(Common.ExecutableDirectory)
 		.AddJsonFile("appsettings.json", false, false)
 #if DEBUG
 		.AddJsonFile($"appsettings.Development.json", true, false)
