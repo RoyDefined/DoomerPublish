@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DoomerPublishConsole;
+using DoomerPublish;
 using System.Text;
 using System.Globalization;
 using CommandLine;
@@ -39,7 +40,7 @@ try
 
 	var services = new ServiceCollection();
 	_ = services.AddLogging(builder => builder.AddSerilog(Log.Logger));
-	_ = services.AddPublisher();
+	_ = services.AddDoomerPublish();
 
 	serviceProvider = services.BuildServiceProvider();
 }

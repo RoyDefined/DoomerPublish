@@ -1,5 +1,6 @@
 ﻿using DoomerPublish.Tools.Acs;
 using DoomerPublish.Tools.Decorate;
+using DoomerPublishConsole;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DoomerPublish;
@@ -14,6 +15,8 @@ public static class IServiceCollectionExtensions
 	public static IServiceCollection AddDoomerPublish(
 		this IServiceCollection serviceCollection)
 	{
+		_ = serviceCollection.AddSingleton<IPublisherService, DefaultPublisherService>();
+
 		_ = serviceCollection.AddSingleton<IAcsService, DefaultAcsService>();
 		_ = serviceCollection.AddSingleton<IAcsParseService, DefaultAcsParseService>();
 
