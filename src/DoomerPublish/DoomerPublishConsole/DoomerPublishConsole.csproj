@@ -21,14 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="..\..\..\LICENSE">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
-	<None Include="..\..\..\README.md">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
 	<PackageReference Include="CommandLineParser" Version="2.9.1" />
 	<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
@@ -40,6 +32,17 @@
   </ItemGroup>
 
   <ItemGroup>
+	<None Include="..\..\..\LICENSE">
+		<Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
+	<None Include="..\..\..\README.md">
+		<Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DoomerPublish\DoomerPublish.csproj" />
   </ItemGroup>
 
@@ -47,10 +50,8 @@
 	<None Update="appsettings.json">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
-  </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug'">
-	<None Update="appsettings.Development.json">
+	<None Update="appsettings.Development.json" Condition="'$(Configuration)'=='Debug'">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
   </ItemGroup>
