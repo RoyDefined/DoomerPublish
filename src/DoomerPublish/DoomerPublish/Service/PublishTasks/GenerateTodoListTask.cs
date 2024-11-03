@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace DoomerPublishConsole.PublishTasks;
+namespace DoomerPublish.PublishTasks;
 
 /// <summary>
 /// This task generates a todo file for the project.

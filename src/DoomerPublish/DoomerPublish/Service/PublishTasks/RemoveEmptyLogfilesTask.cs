@@ -1,7 +1,7 @@
 ﻿using DoomerPublish.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace DoomerPublishConsole.PublishTasks;
+namespace DoomerPublish.PublishTasks;
 
 /// <summary>
 /// This task removed all empty log files from the configured log folder.

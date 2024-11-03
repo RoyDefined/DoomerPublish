@@ -1,6 +1,6 @@
 ﻿using DoomerPublish.Tools.Acs;
 using DoomerPublish.Tools.Decorate;
-using DoomerPublishConsole;
+using DoomerPublish;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DoomerPublish;

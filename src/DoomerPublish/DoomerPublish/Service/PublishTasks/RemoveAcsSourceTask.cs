@@ -1,7 +1,7 @@
 ﻿using DoomerPublish.Tools.Acs;
 using Microsoft.Extensions.Logging;
 
-namespace DoomerPublishConsole.PublishTasks;
+namespace DoomerPublish.PublishTasks;
 
 /// <summary>
 /// This task removes the ACS source from the project.

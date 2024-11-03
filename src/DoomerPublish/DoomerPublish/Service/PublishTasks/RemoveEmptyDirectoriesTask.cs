@@ -1,7 +1,7 @@
 ﻿using DoomerPublish.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace DoomerPublishConsole.PublishTasks;
+namespace DoomerPublish.PublishTasks;
 
 /// <summary>
 /// This task removed all empty directories. Useful for the actor folder if you pack your decorate code for example.

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
-namespace DoomerPublishConsole.PublishTasks;
+namespace DoomerPublish.PublishTasks;
 
 /// <summary>
 /// This task removes all unrelated files from the project, which has no use and only serves as bloat or a trigger for warnings.

@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace DoomerPublishConsole;
+namespace DoomerPublish;
 
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
 

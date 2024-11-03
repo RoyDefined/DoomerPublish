@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using DoomerPublish;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DoomerPublishConsole;

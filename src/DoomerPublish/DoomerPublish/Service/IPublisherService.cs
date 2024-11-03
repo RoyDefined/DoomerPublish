@@ -1,4 +1,4 @@
-﻿namespace DoomerPublishConsole;
+﻿namespace DoomerPublish;
 
 /// <summary>
 /// Represents a class that implements publishing a project.

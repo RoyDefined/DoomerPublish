@@ -1,9 +1,9 @@
-﻿using DoomerPublishConsole.PublishTasks;
+﻿using DoomerPublish.PublishTasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace DoomerPublishConsole;
+namespace DoomerPublish;
 
 /// <summary>
 /// The default implementation of <see cref="IPublisherService"/>.
