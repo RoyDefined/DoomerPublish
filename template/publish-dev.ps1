@@ -32,9 +32,9 @@ $engine = "zandronum";
 try
 {
 	# Core projects with different compilable code.
-	invokePublishTool -projectPath $accProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "acc" -engine $engine -publicAcs $true;
-	invokePublishTool -projectPath $bccProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "bcc" -defines "dev" -engine $engine -publicAcs $true;
-	invokePublishTool -projectPath $gdccProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "gdccacc" -defines "dev" -engine $engine -noWarnForwardReferences $noWarnForwardReferences -publicAcs $true;
+	invokePublishTool -projectPath $accProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "acc" -engine $engine -publicAcs $true -removeEmptyLogFiles $true;
+	invokePublishTool -projectPath $bccProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "bcc" -defines "dev" -engine $engine -publicAcs $true -removeEmptyLogFiles $true;
+	invokePublishTool -projectPath $gdccProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "gdccacc" -defines "dev" -engine $engine -noWarnForwardReferences $noWarnForwardReferences -publicAcs $true -removeEmptyLogFiles $true;
 	
 	# Resources
 	invokePublishTool -projectPath $resourcesProjectPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath;

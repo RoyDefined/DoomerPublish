@@ -53,7 +53,10 @@ $removeUnrelated = $false;
 $packDecorate = $false;
 
 # If true, remove all empty directories.
-$removeEmpty = $false;
+$removeEmptyDirectories = $false;
+
+# If true, remove all empty log files.
+$removeEmptyLogFiles = $false;
 
 # The relative path of the folder to place the final build of the projects.
 # Not passing this parameter will cause the tool to not pack your project into a pk3.
@@ -63,7 +66,7 @@ try
 {
 	# Invoke the publish tool here using `invokePublishTool`, and pass the relevant arguments.
 	# A single call of `invokePublishTool` will target a single project, so if you have multiple, you will call it multiple times.
-	invokePublishTool -projectPath $projectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $todoPath -decorateSummaryAt $decorateSummaryPath -compileWith $compileWith -defines $defines -engine $engine -noWarnForwardReferences $noWarnForwardReferences -tempProject $tempProject -publicAcs $publicAcs -removeAcs $removeAcs -removeUnrelated $removeUnrelated -packDecorate $packDecorate -removeEmpty $removeEmpty;
+	invokePublishTool -projectPath $projectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $todoPath -decorateSummaryAt $decorateSummaryPath -compileWith $compileWith -defines $defines -engine $engine -noWarnForwardReferences $noWarnForwardReferences -tempProject $tempProject -publicAcs $publicAcs -removeAcs $removeAcs -removeUnrelated $removeUnrelated -packDecorate $packDecorate -removeEmptyDirectories $removeEmptyDirectories -removeEmptyLogFiles $removeEmptyLogFiles;
 }
 catch
 {
