@@ -38,12 +38,12 @@ $buildPath = "build";
 
 try
 {
-	invokePublishTool -projectPath $accProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "acc" -engine $engine -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmpty $true;
-	invokePublishTool -projectPath $bccProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "bcc" -engine $engine -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmpty $true;
-	invokePublishTool -projectPath $gdccProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "gdcc" -engine $engine -noWarnForwardReferences $noWarnForwardReferences -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmpty $true;
+	invokePublishTool -projectPath $accProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "acc" -engine $engine -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmptyDirectories $true -removeEmptyLogFiles $true;
+	invokePublishTool -projectPath $bccProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "bcc" -engine $engine -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmptyDirectories $true -removeEmptyLogFiles $true;
+	invokePublishTool -projectPath $gdccProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -compileWith "gdcc" -engine $engine -noWarnForwardReferences $noWarnForwardReferences -tempProject $true -publicAcs $true -removeAcs $true -removeUnrelated $true -packDecorate $true -removeEmptyDirectories $true -removeEmptyLogFiles $true;
 	
-	invokePublishTool -projectPath $mapsProjectPath -packToOutput $buildPath -logOutput $logsPath -tempProject $true -removeUnrelated $true -removeEmpty $true;
-	invokePublishTool -projectPath $resourcesProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -tempProject $true -removeUnrelated $true -packDecorate $true -removeEmpty $true;
+	invokePublishTool -projectPath $mapsProjectPath -packToOutput $buildPath -logOutput $logsPath -tempProject $true -removeUnrelated $true -removeEmptyDirectories $true -removeEmptyLogFiles $true;
+	invokePublishTool -projectPath $resourcesProjectPath -packToOutput $buildPath -logOutput $logsPath -todoAt $logsPath -decorateSummaryAt $logsPath -tempProject $true -removeUnrelated $true -packDecorate $true -removeEmptyDirectories $true -removeEmptyLogFiles $true;
 }
 catch
 {
