@@ -16,7 +16,8 @@ function invokePublishTool()
 		[parameter(Mandatory=$false)][boolean] $removeAcs,
 		[parameter(Mandatory=$false)][boolean] $removeUnrelated,
 		[parameter(Mandatory=$false)][boolean] $packDecorate,
-		[parameter(Mandatory=$false)][boolean] $removeEmpty)
+		[parameter(Mandatory=$false)][boolean] $removeEmptyDirectories,
+		[parameter(Mandatory=$false)][boolean] $removeEmptyLogFiles)
 
 	try
 	{
@@ -94,7 +95,8 @@ function invokePublishTool()
 		if ($removeAcs) 			  { $argumentList += " --removeAcs"; }
 		if ($removeUnrelated) 		  { $argumentList += " --removeUnrelated"; }
 		if ($packDecorate) 			  { $argumentList += " --packDecorate"; }
-		if ($removeEmpty) 			  { $argumentList += " --removeEmpty"; }
+		if ($removeEmptyDirectories)  { $argumentList += " --removeEmptyDirectories"; }
+		if ($removeEmptyLogFiles)	  { $argumentList += " --removeEmptyLogFiles"; }
 		
 		# If help was set, then instead the argument is simply the help call.
 		if ($help) {
