@@ -17,7 +17,7 @@ internal sealed class MethodParser(
 	/// <summary>
 	/// Regex to find functions, filtering public and non public, summary, name, actual definition and return type.
 	/// </summary>
-	private readonly Regex _functionRegex = new(@"(\/\/\s*@(?<public>(public))\s*)?(\/\/\s*@summary\s*(?<summary>(.*)))?\s*(?<definition>((function )?(?<returnType>([a-zA-Z]+)) (?<functionName>([\w\d]*)))\s*\((?<parameters>([\w\d,= ]*))\)\s*{)", RegexOptions.IgnoreCase);
+	private readonly Regex _functionRegex = new(@"(\/\/\s*@(?<public>(public))\s*)?(\/\/\s*@summary\s*(?<summary>(.*)))?\s*(?<definition>((function )?(?<returnType>([a-zA-Z]+)) (?<functionName>([\w\d]*)))\s*\((?<parameters>([\w\d,= ""]*))\)\s*{)", RegexOptions.IgnoreCase);
 
 	/// <summary>
 	/// Regex to find scripts, filtering public and non public, summary, name, and actual definition.
@@ -200,12 +200,12 @@ internal sealed class MethodParser(
 			// The third "part" must be the assignment.
 			if (parts.Length == 4)
 			{
-				if (parts[3] != "=")
+				if (parts[2] != "=")
 				{
 					throw new InvalidOperationException($"Expected optional parameter for \"{x}\" but got {parts[3]}.");
 				}
 
-				parts = parts[..1];
+				parts = parts[..2];
 			}
 
 			if (parts.Length != 2)
