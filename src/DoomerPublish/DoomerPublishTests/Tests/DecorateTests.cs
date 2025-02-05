@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DoomerPublishTests;
 
-public class DecorateTests
+internal sealed class DecorateTests
 {
 	private const string BaseFilePath = "DecorateParseFiles/basefile.dec";
 
@@ -18,8 +18,14 @@ public class DecorateTests
 	{
 		this._services = new ServiceCollection()
 			.AddLogging()
-			.AddDoomerPublishTools()
+			.AddDoomerPublish()
 			.BuildServiceProvider();
+	}
+
+	[OneTimeTearDown]
+	public void TearDown()
+	{
+		this._services.Dispose();
 	}
 
 	[Test]
