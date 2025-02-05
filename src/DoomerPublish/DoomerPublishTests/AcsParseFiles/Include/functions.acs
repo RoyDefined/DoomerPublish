@@ -74,4 +74,8 @@ strict namespace
 	raw FunctionNoPrefixParams (int parameter1, raw parameter2, str parameter3, str parameter4)
 	{
 	}
+
+	raw FunctionNoPrefixParamsAndOptionalParams (int parameter1, raw parameter2, str parameter3 = "Foo", int parameter4 = 1)
+	{
+	}
 }
