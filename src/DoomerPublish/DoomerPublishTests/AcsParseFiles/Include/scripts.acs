@@ -27,8 +27,4 @@ strict namespace
 	script "RegularScriptParameters1" (int parameter1, raw parameter2)
 	{
 	}
-	
-	script "RegularScriptParameters2" (int parameter1, /* Inline comment */raw parameter2)
-	{
-	}
 }
