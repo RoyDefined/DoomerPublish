@@ -1,8 +1,8 @@
 <Solution>
-  <Project Path="DoomerPublish.lib\DoomerPublish.lib.csproj" />
   <Project Path="DoomerPublishTests\DoomerPublishTests.csproj" />
-  <Project Path="DoomerPublishTool\DoomerPublishTool.csproj" />
   <Properties Name="Visual Studio">
     <Property Name="OpenWith" Value="Visual Studio Version 17" />
   </Properties>
+  <Project Path="DoomerPublishConsole\DoomerPublishConsole.csproj" />
+  <Project Path="DoomerPublish\DoomerPublish.csproj" />
 </Solution>

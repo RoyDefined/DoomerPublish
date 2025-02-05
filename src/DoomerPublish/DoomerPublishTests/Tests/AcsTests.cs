@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DoomerPublishTests;
 
-public class AcsTests
+internal sealed class AcsTests
 {
 	private const string BaseFilePath = "AcsParseFiles/basefile.acs";
 
@@ -17,8 +17,14 @@ public class AcsTests
 	{
 		this._services = new ServiceCollection()
 			.AddLogging()
-			.AddDoomerPublishTools()
+			.AddDoomerPublish()
 			.BuildServiceProvider();
+	}
+
+	[OneTimeTearDown]
+	public void TearDown()
+	{
+		this._services.Dispose();
 	}
 
 	[Test]

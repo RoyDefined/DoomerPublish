@@ -71,11 +71,22 @@ strict namespace
 	{
 	}
 	
-	function void RegularFunctionParams2 (/* int unusedParameter, */int parameter1, /* Inline comment */raw parameter2, str parameter3 /*,*/, str parameter4)
+	raw FunctionNoPrefixParams (int parameter1, raw parameter2, str parameter3, str parameter4)
+	{
+	}
+
+	raw FunctionNoPrefixParamsAndOptionalParams (int parameter1, raw parameter2, str parameter3 = "Foo", int parameter4 = 1)
 	{
 	}
 	
-	raw FunctionNoPrefixParams (int parameter1, raw parameter2, str parameter3, str parameter4)
+	// @public
+	function void RegularFunctionParamsAndPublic (int parameter1, raw parameter2, str parameter3, str parameter4)
+	{
+	}
+
+	// @public
+	// @summary This is a test function
+	function void RegularFunctionParamsAndPublic2 (int parameter1, raw parameter2, str parameter3, str parameter4)
 	{
 	}
 }

@@ -24,11 +24,17 @@ strict namespace
 	{
 	}
 	
-	script "RegularScriptParameters1" (int parameter1, raw parameter2)
+	script "RegularScriptParameters" (int parameter1, raw parameter2)
 	{
 	}
 	
-	script "RegularScriptParameters2" (int parameter1, /* Inline comment */raw parameter2)
+	script "RegularScriptParametersOptional" (int parameter1, raw parameter2, int parameter3 = 1)
+	{
+	}
+	
+	// @public
+	// @summary This is a test script
+	script "RegularScriptParametersPublic" (int parameter1, raw parameter2)
 	{
 	}
 }
