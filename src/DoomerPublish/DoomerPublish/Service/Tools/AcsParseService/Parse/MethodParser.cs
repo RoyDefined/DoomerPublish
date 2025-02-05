@@ -17,7 +17,7 @@ internal sealed class MethodParser(
 	/// <summary>
 	/// Regex to find functions, filtering public and non public, summary, name, actual definition and return type.
 	/// </summary>
-	private readonly Regex _functionRegex = new(@"(\/\/\s*@(?<public>(public))\s*)?(\/\/\s*@summary\s*(?<summary>(.*)))?\s*(?<definition>(function (?<returnType>([a-zA-Z]+)) (?<functionName>([\w\d]*)))\s*\((?<parameters>([\w\d,= ]*))\)\s*{)", RegexOptions.IgnoreCase);
+	private readonly Regex _functionRegex = new(@"(\/\/\s*@(?<public>(public))\s*)?(\/\/\s*@summary\s*(?<summary>(.*)))?\s*(?<definition>((function )?(?<returnType>([a-zA-Z]+)) (?<functionName>([\w\d]*)))\s*\((?<parameters>([\w\d,= ]*))\)\s*{)", RegexOptions.IgnoreCase);
 
 	/// <summary>
 	/// Regex to find scripts, filtering public and non public, summary, name, and actual definition.
